@@ -7,12 +7,12 @@
     <h1>index</h1>
     <a href="{% url 'accounts:logout' %}">로그아웃</a>
     {% if request.user == user %}
-    <a class='' href="{% url 'accounts:update' %}">
-      회원 정보 수정
-    </a>
-    <a class='' href="{% url 'accounts:profile' user.pk %}">
-      프로필
-    </a>
+      <a class='' href="{% url 'accounts:update' %}">
+        회원 정보 수정
+      </a>
+      <a class='' href="{% url 'accounts:profile' user.pk %}">
+        프로필
+      </a>
     {% endif %}
 
   {% else %}
@@ -22,7 +22,5 @@
     <a href="{% url 'accounts:signup' %}">회원가입</a>
 
   {% endif %}
-
-
 
 {% endblock content %}
