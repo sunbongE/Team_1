@@ -6,8 +6,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
-
-
 class Review(models.Model):
     store_name = models.CharField(max_length=80)                   # 가게이름
     store_address = models.CharField(max_length=100)               # 주소
@@ -38,9 +36,8 @@ class Comment(models.Model):
     Like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_comment')
     tag = models.CharField(max_length=32, verbose_name="태그명", choices = TAG_CHOICES)            # 소비자 추천
     # tag = models.CharField(max_length=32, verbose_name="태그명")            # 소비자 추천
+
     review = models.ForeignKey(
         Review,
         on_delete = models.CASCADE
     )
-    
-    

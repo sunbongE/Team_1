@@ -76,4 +76,13 @@ def update(request,detail_pk):
     }
     return render(request, "reviews/create.html", context)
 
+def delete(request,detail_pk):
+    if request.method=='POST':
+        review = Review.objects.get(pk=detail_pk)
+        review.user = request.user
+        review.delete()
+        return redirect('reviews:index')
+    else:
+        return redirect('reviews:detail', detail_pk)
+
 
