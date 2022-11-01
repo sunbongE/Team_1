@@ -27,3 +27,8 @@ class CommentForm(forms.ModelForm):
             'grade',
             'tag',
         )
+        labels = {
+        'content':'맛 평가',
+        'image':'음식 사진',
+        'grade': '평점',
+        }
