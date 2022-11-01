@@ -21,12 +21,14 @@ class Review(models.Model):
     content = models.TextField()                                   # 식당소개
 
 
+
 TAG_CHOICES = {
       ('morning','아메추'), #오른쪽에 있는 것이 화면에 보인다.
       ('lunch', '점메추'),
       ('dinner', '저메추'),
       ('midnight_snack', '야메추'),
   }
+
 class Comment(models.Model):
     content = models.TextField()                                           # 리뷰 내용
     image = models.ImageField(upload_to='images/', blank=True)             # 이미지
@@ -40,4 +42,5 @@ class Comment(models.Model):
     review = models.ForeignKey(
         Review,
         on_delete = models.CASCADE
+
     )
