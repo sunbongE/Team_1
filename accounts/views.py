@@ -87,38 +87,37 @@ def update(request):
 
     return render(request,'accounts/update.html',context)
 
-def profile(request,username):
+def profile(request,user_pk):
 
 
     User = get_user_model()
-    person = User.objects.get(username=username)
+    person = User.objects.get(pk=user_pk)
     context = {
         'person': person
     }
     return render(request, 'accounts/profile.html', context)
 
-@require_POST
+
 def follow(request,user_pk):
-    if request.user.is_authenticated:
-        User = get_user_model()
-        me = request.user
-        you = User.objects.get(pk=user_pk)
+    
+    User = get_user_model()
+    me = request.user
+    you = User.objects.get(pk=user_pk)
 
-        if me != you:
-            if you.followers.filter(pk=me.pk).exists():
-                you.followers.remove(me)
-                is_followed = False
+    if you == request.user:
+        return redirect("accounts:profile", user_pk)
 
-            else:
-                you.followers.add(me)
-                is_followed = True
+    if you.followers.filter(pk=me.pk).exists():
+        you.followers.remove(me)
+        is_followed = False
 
-            context = {
-                'is_follow':is_followed,
-                'followings_count':you.followings.count(),
-                "followers_count":you.followers.count(),
-            }
-            return JsonResponse(context)
+    else:
+        you.followers.add(me)
+        is_followed = True
 
-        return redirect('accounts:profile',you.username)
-    return redirect('accounts:login')
+    context = {
+        'is_followed':is_followed,
+        'followings_count':you.followings.count(),
+        "followers_count":you.followers.count(),
+    }
+    return JsonResponse(context)

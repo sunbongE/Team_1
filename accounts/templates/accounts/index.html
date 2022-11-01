@@ -10,7 +10,7 @@
     <a class='' href="{% url 'accounts:update' %}">
       회원 정보 수정
     </a>
-    <a class='' href="{% url 'accounts:profile' user.username %}">
+    <a class='' href="{% url 'accounts:profile' user.user_pk %}">
       프로필
     </a>
     {% endif %}
