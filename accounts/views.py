@@ -6,6 +6,8 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 
 # Create your views here.
@@ -85,10 +87,38 @@ def update(request):
 
     return render(request,'accounts/update.html',context)
 
-def profile(request,pk):
+def profile(request,username):
 
-    user = get_object_or_404(get_user_model(), pk=pk)
+
+    User = get_user_model()
+    person = User.objects.get(username=username)
     context = {
-        'user': user
+        'person': person
     }
     return render(request, 'accounts/profile.html', context)
+
+@require_POST
+def follow(request,user_pk):
+    if request.user.is_authenticated:
+        User = get_user_model()
+        me = request.user
+        you = User.objects.get(pk=user_pk)
+
+        if me != you:
+            if you.followers.filter(pk=me.pk).exists():
+                you.followers.remove(me)
+                is_followed = False
+
+            else:
+                you.followers.add(me)
+                is_followed = True
+
+            context = {
+                'is_follow':is_followed,
+                'followings_count':you.followings.count(),
+                "followers_count":you.followers.count(),
+            }
+            return JsonResponse(context)
+
+        return redirect('accounts:profile',you.username)
+    return redirect('accounts:login')

@@ -7,10 +7,10 @@
     <div class="mx-3">
       <div class="d-flex flex-row justify-content-between">
         <div class="">
-          <h1 class="my-3">{{ user.username }}님의 프로필</h1>
+          <h1 class="my-3">{{ person.username }}님의 프로필</h1>
         </div>
         <div class="">
-          {% if request.user == user %}
+          {% if request.user == person %}
             <a class='btn btn-outline-dark mx-4 my-3' href="{% url 'accounts:update' %}">
               회원 정보 수정
             </a>
@@ -21,22 +21,114 @@
       <div class="">
         <p class='fs-5'>
           first name :
-          {{ user.first_name }}
+          {{ person.first_name }}
         </p>
         <p class='fs-5'>
           lastname :
-          {{ user.last_rname }}
+          {{ person.last_rname }}
         </p>
         <p class='fs-5'>
-          email :{{ user.email }}
+          email :{{ person.email }}
         </p>
       </div>
     </div>
   </div>
 
+  <div class="mx-3">
+    <div>
+      팔로잉 :<span id="followings-count">{{ person.followings.all|length }}</span>  / 
+      팔로워 : <span id="followers-count">{{ person.followers.all|length }}</span>
+    </div>
+
+  </div>
+  <div class="d-flex mx-3">
+    {% if request.user != person %}
+    <div class="align-self-center">
+      <form id="follow-form" data-user-id= "{{person.pk}}">
+        {% csrf_token %}
+        {% if request.user in person.followers.all %}
+        <input type="submit" value="Unfollow">
+        {% else %}
+        <input type="submit" value="Follow">
+        {% endif %}
+      </form>
+    </div>
+    {% endif %}
+  </div>
 {% endblock content %}
 
 {% block script %}
-  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <script> const form = document.querySelector('#follow-form') const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value form.addEventListener('submit',function(event) { event.preventDefault() const userID = event.target.dataset.userID axios({ method: 'post', url: `/accounts/${userID}/follow/`, headers: {'X-CSRFToKen': csrftoken,} }) .then((response) => { const isFollowed = response.data.is_followed const followBtn = document.querySelector('#follow-form > input[type=submit]') if (isFollowed === true) { followBtn.value = '언팔로우' } else { followBtn.value = '팔로우' } const followersCountTag = document.querySelector('#followers-count') const followingsCountTag = document.querySelector('#followings-count') const followersCount = response.data.followers_count const followingsCount = response.data.followings_count followersCountTag.innerText = followersCount followingsCountTag.innerText = followingsCount }) .catch((error) => { console.log(error.response) }) }) -->
+
+<script>
+  const form = document.querySelector('#follow-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const userId = event.target.dataset.userId
+
+    axios({
+      method: 'post',
+      url: `/accounts/${userId}/follow/`,
+      headers: {'X-CSRFToken': csrftoken,}
+    })
+
+    .then((response) => {
+      const isFollowed = response.data.is_followed
+      const followBtn = document.querySelector('#follow-form > input[type=submit]')
+      if (isFollowed === true) {
+      followBtn.value = '언팔로우'
+      } else {
+      followBtn.value = '팔로우'
+      }
+      const followersCountTag = document.querySelector('#followers-count')
+      const followingsCountTag = document.querySelector('#followings-count')
+      const followersCount = response.data.followers_count
+      const followingsCount = response.data.followings_count
+      followersCountTag.innerText = followersCount
+      followingsCountTag.innerText = followingsCount
+    })
+    .catch((error) => {
+      console.log(error.response)
+    })
+  })
 </script>
+
 {% endblock script %}
+
+<!--  안되는 코드
+<script>
+  const form = document.querySelector('#follow-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  form.addEventListener('submit',function(event) {
+    event.preventDefault()
+    const userID = event.target.dataset.userID
+    axios({
+      method: 'post',
+      url: `/accounts/${userID}/follow/`,
+      headers: {'X-CSRFToKen': csrftoken,}
+
+    })
+    .then((response) => {
+      const isFollowed = response.data.is_followed
+      const followBtn = document.querySelector('#follow-form > input[type=submit]')
+      if (isFollowed === true) {
+      followBtn.value = '언팔로우'
+      } else {
+      followBtn.value = '팔로우'
+      }
+      const followersCountTag = document.querySelector('#followers-count')
+      const followingsCountTag = document.querySelector('#followings-count')
+      const followersCount = response.data.followers_count
+      const followingsCount = response.data.followings_count
+      followersCountTag.innerText = followersCount
+      followingsCountTag.innerText = followingsCount
+
+    })
+    .catch((error) => {
+      console.log(error.response)
+    })
+  })
+
+</script> -->
