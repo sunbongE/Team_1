@@ -23,6 +23,7 @@ class Review(models.Model):
     content = models.TextField()                                   # 식당소개
 
 
+
 class Comment(models.Model):
     content = models.TextField()                                           # 리뷰 내용
     image = models.ImageField(upload_to='images/', blank=True)             # 이미지
@@ -35,3 +36,4 @@ class Comment(models.Model):
         Review,
         on_delete = models.CASCADE
     )
+

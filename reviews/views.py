@@ -41,7 +41,7 @@ def comment_create(request,detail_pk):
     else:
         comment_form=()
     context={
-        comment_form
+        'comment_form':comment_form
     }
     return render(request,'reviews/comment.html')
 
