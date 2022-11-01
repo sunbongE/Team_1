@@ -60,4 +60,21 @@ def detail(request,detail_pk):
     }
     return render(request,'reviews/detail.html',context)
 
+def update(request,detail_pk):
+    review = Review.objects.get(pk=detail_pk)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, request.FILES, instance=review)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.save()
+            return redirect("reviews:detail", detail_pk)
+    else:
+        form = ReviewForm(instance=review)
+
+    context = {
+        "form": form,
+    }
+    return render(request, "reviews/create.html", context)
+
 
