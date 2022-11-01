@@ -13,6 +13,7 @@
     <h3>
       {{ review.store_name }}
     </h3>
+
     <p>
       {{ review.store_address }}
     </p>
@@ -34,6 +35,23 @@
     <p>
       {{ review.content }}
     </p>
+
   </div>
   <a href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a>
+
+  <h2>맛 평가 리스트</h2>
+  {% for comment in comments %}
+  <p>맛 평가:{{ comment.grade }}점</p>
+  <p>작성일:{{ comment.created_at }}</p>
+  <p>추천:{{ comment.tag }}</p>
+  {% if comment.image %}
+      <img src="{{ comment.image.url }}" alt="{{comment.image}}" width='180px;'>
+    {% endif %}
+  
+  {% endfor %}
+
+
+
+
+
 {% endblock content %}
