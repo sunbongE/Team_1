@@ -47,9 +47,9 @@
       <form id="follow-form" data-user-id= "{{person.pk}}">
         {% csrf_token %}
         {% if request.user in person.followers.all %}
-        <input type="submit" value="Unfollow">
+        <input class="btn btn-danger" type="submit" value="언팔로우">
         {% else %}
-        <input type="submit" value="Follow">
+        <input class="btn btn-primary" type="submit" value="팔로우">
         {% endif %}
       </form>
     </div>
@@ -77,9 +77,13 @@
       const isFollowed = response.data.is_followed
       const followBtn = document.querySelector('#follow-form > input[type=submit]')
       if (isFollowed === true) {
-      followBtn.value = '언팔로우'
+        followBtn.value = '언팔로우'
+        followBtn.classList.add('btn-danger')
+        followBtn.classList.remove('btn-primary')
       } else {
-      followBtn.value = '팔로우'
+        followBtn.value = '팔로우'
+        followBtn.classList.add('btn-primary')
+        followBtn.classList.remove('btn-danger')
       }
       const followersCountTag = document.querySelector('#followers-count')
       const followingsCountTag = document.querySelector('#followings-count')
@@ -88,9 +92,7 @@
       followersCountTag.innerText = followersCount
       followingsCountTag.innerText = followingsCount
     })
-    .catch((error) => {
-      console.log(error.response)
-    })
+
   })
 </script>
 
