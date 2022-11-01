@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+  {% if request.user.is_authenticated %}
+    <h1>index</h1>
+    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+    {% if request.user == user %}
+    <a class='' href="{% url 'accounts:update' %}">
+      회원 정보 수정
+    </a>
+    {% endif %}
+
+  {% else %}
+    <h1>index</h1>
+    <a href="{% url 'accounts:login' %}">로그인</a>
+    <br>
+    <a href="{% url 'accounts:signup' %}">회원가입</a>
+
+  {% endif %}
+
+
+
+{% endblock content %}
