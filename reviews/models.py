@@ -6,7 +6,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
-
+TAG_CHOICES = {
+      ('morning','아메추'), #오른쪽에 있는 것이 화면에 보인다.
+      ('lunch', '점메추'),
+      ('dinner', '저메추'),
+      ('midnight snack', '야메추'),
+  }
 
 class Review(models.Model):
     store_name = models.CharField(max_length=80)                   # 가게이름
@@ -30,8 +35,9 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)                   # 글 작성일
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     Like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_comment')
-    tag = models.CharField(max_length=32, verbose_name="태그명")            # 소비자 추천
+    tag = models.CharField(max_length=32, verbose_name="태그명", choices = TAG_CHOICES)            # 소비자 추천
     review = models.ForeignKey(
         Review,
         on_delete = models.CASCADE
     )
+

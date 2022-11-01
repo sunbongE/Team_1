@@ -2,6 +2,10 @@
 {% block content %}
   <h1>detail.html</h1>
   <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>수정하기</a>
+  <form action="{% url 'reviews:delete' review.pk %}" method='POST'>
+    {% csrf_token %}
+    <input type="submit" value='삭제' class='btn btn-danger'>
+  </form>
   <div class="">
     {% if review.image.url %}
       <img src="{{ review.image.url }}" alt="{{review.image}}">
