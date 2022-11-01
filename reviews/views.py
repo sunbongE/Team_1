@@ -54,8 +54,12 @@ def comment_delete(request,detail_pk,comment_pk):
 
 def detail(request,detail_pk):
     review = Review.objects.get(pk=detail_pk)
+
+    comments = review.comment_set.all()
+
     context = {
         'review' : review,
+        'comments':comments,
     }
     return render(request,'reviews/detail.html',context)
 
