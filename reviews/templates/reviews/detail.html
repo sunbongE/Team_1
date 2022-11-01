@@ -13,7 +13,27 @@
     <h3>
       {{ review.store_name }}
     </h3>
-    등등등
+    <p>
+      {{ review.store_address }}
+    </p>
+    <p>
+      {{ review.phoneNumber }}
+    </p>
+    <p>
+      {{ review.parking }}
+    </p>
+    <p>
+      {{ review.price }}
+    </p>
+    <p>
+      {{ review.time }}
+    </p>
+    <p>
+      {{ review.breaktime }}
+    </p>
+    <p>
+      {{ review.content }}
+    </p>
   </div>
   <a href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a>
 {% endblock content %}
