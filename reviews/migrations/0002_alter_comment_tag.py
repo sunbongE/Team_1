@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='comment',
             name='tag',
-            field=models.CharField(choices=[('midnight snack', '야메추'), ('lunch', '점메추'), ('dinner', '저메추'), ('morning', '아메추')], max_length=32, verbose_name='태그명'),
+            field=models.CharField(choices=[('midnight snack', '야메추'), ('dinner', '저메추'), ('lunch', '점메추'), ('morning', '아메추')], max_length=32, verbose_name='태그명'),
         ),
     ]
