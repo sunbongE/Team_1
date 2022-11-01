@@ -36,14 +36,13 @@ def comment_create(request,detail_pk):
             comment.review=review
             comment.user = request.user
             comment.save()
-            pass
-            # return redirect("reviews:detail", detail_pk) # 댓글 작성 후 어디로 갈지 회의
+            return redirect("reviews:detail", detail_pk) 
     else:
-        comment_form=()
+        comment_form=CommentForm()
     context={
-        comment_form
+        'comment_form':comment_form
     }
-    return render(request,'reviews/comment.html')
+    return render(request,'reviews/comment.html',context)
 
 def comment_delete(request,detail_pk,comment_pk):
     detail = Review.objects.get(pk =detail_pk)   # 몇번 글인지? ( 가게 )
