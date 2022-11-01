@@ -1,8 +1,9 @@
-{% extends 'base.html' %}   
+{% extends 'base.html' %}
 
 {% block content %}
-<h1> 가게 정보 </h1>
+  <h1>
+    가게 정보
+  </h1>
 
-<a href="{% url 'reviews:create' %}">가게 작성?</a>
-
-{% endblock  %}
+  <a href="{% url 'reviews:create' %}">가게 작성?</a>
+{% endblock %}
