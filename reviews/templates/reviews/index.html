@@ -8,7 +8,9 @@
   {% for review in reviews %}
     <a href="{% url 'reviews:detail' review.pk %}">
       <div class="card" style='width:18rem;'>
+        {% if review.image %}
         <img src="{{ review.image.url }}" alt="{{review.image}}" class='card-img-top'>
+        {% endif %}
         <div class="card-body">
           {{review.store_name}}
         </div>
