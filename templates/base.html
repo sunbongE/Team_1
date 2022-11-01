@@ -21,6 +21,7 @@
 
       body {
         display: flex;
+        flex-direction: column;
       }
 
       main {
@@ -30,22 +31,38 @@
   </head>
 
   <body>
+    <a href="{% url 'accounts:index' %}">accounts index</a>
+    <a href="{% url 'accounts:logout' %}" class='btn btn-primary'>로그아웃</a>
+
+    {% if request.user.is_authenticated %}
+      {% if request.user == user %}
+        <a class='btn btn-primary' href="{% url 'accounts:update' %}">
+          회원 정보 수정
+        </a>
+        <a class='btn btn-primary' href="{% url 'accounts:profile' user.username %}">
+          프로필
+        </a>
+
+      {% endif %}
+    {% else %}
+      <h1>index</h1>
+      <a href="{% url 'accounts:login' %}" class='btn btn-primary'>로그인</a>
+      <br>
+      <a href="{% url 'accounts:signup' %}" class='btn btn-primary'>회원가입</a>
+
+    {% endif %}
+
     {% block content %}{% endblock %}
 
     {% bootstrap_javascript %}
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    {% block script %}
-    {% endblock script %}
+    {% block script %}{% endblock script %}
   </body>
 
 </html>

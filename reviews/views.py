@@ -8,7 +8,7 @@ def index(request):
     context = {
         'reviews' : reviews,
     }
-    return render(request, 'reviews/index.html')
+    return render(request, 'reviews/index.html',context)
 
 def create(request):
     if request.method == 'POST':
@@ -53,11 +53,11 @@ def comment_delete(request,detail_pk,comment_pk):
     return redirect('reviews:index')
     # return redirect('reviews:detail',detail_pk)
 
-def detail(request,review_detail_pk):
-    review = Review.objects.get(pk=review_detail_pk)
+def detail(request,detail_pk):
+    review = Review.objects.get(pk=detail_pk)
     context = {
         'review' : review,
     }
-    return render(request,'reviews/detail.html')
+    return render(request,'reviews/detail.html',context)
 
 

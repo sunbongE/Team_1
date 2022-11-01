@@ -6,11 +6,14 @@
   </h1>
 
   {% for review in reviews %}
-    <div class="">
-      <img src="{{ review.image.url }}" alt="{{review.image}}">
-      <br>
-      {{review.store_name}}
-    </div>
+    <a href="{% url 'reviews:detail' review.pk %}">
+      <div class="card" style='width:18rem;'>
+        <img src="{{ review.image.url }}" alt="{{review.image}}" class='card-img-top'>
+        <div class="card-body">
+          {{review.store_name}}
+        </div>
+      </div>
+    </a>
   {% endfor %}
   <a href="{% url 'reviews:create' %}">가게 작성?</a>
 {% endblock %}
