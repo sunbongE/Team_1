@@ -4,10 +4,11 @@ from reviews.forms import CommentForm, ReviewForm
 # Create your views here.
 
 def index(request):
+    reviews = Review.objects.all()
+    context = {
+        'reviews' : reviews,
+    }
     return render(request, 'reviews/index.html')
-
-
-
 
 def create(request):
     if request.method == 'POST':
@@ -24,6 +25,7 @@ def create(request):
         "form": form,
     }
     return render(request, "reviews/create.html", context)
+
 
 def comment_create(request,detail_pk):
     review = Review.objects.get(pk=detail_pk)
@@ -50,3 +52,12 @@ def comment_delete(request,detail_pk,comment_pk):
         comment.delete()
     return redirect('reviews:index')
     # return redirect('reviews:detail',detail_pk)
+
+def detail(request,review_detail_pk):
+    review = Review.objects.get(pk=review_detail_pk)
+    context = {
+        'review' : review,
+    }
+    return render(request,'reviews/detail.html')
+
+

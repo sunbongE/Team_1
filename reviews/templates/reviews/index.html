@@ -1,8 +1,16 @@
-{% extends 'base.html' %}   
+{% extends 'base.html' %}
 
 {% block content %}
-<h1> 가게 정보 </h1>
+  <h1>
+    가게 정보
+  </h1>
 
-<a href="{% url 'reviews:create' %}">가게 작성?</a>
-
-{% endblock  %}
+  {% for review in reviews %}
+    <div class="">
+      <img src="{{ review.image.url }}" alt="{{review.image}}">
+      <br>
+      {{review.store_name}}
+    </div>
+  {% endfor %}
+  <a href="{% url 'reviews:create' %}">가게 작성?</a>
+{% endblock %}
