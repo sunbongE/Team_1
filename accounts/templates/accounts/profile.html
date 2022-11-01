@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_javascript %}
+{% block content %}
+
+  <div class="d-flex flex-column col-10">
+    <div class="mx-3">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="">
+          <h1 class="my-3">{{ user.username }}님의 프로필</h1>
+        </div>
+        <div class="">
+          {% if request.user == user %}
+            <a class='btn btn-outline-dark mx-4 my-3' href="{% url 'accounts:update' %}">
+              회원 정보 수정
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="">
+        <p class='fs-5'>
+          first name :
+          {{ user.first_name }}
+        </p>
+        <p class='fs-5'>
+          lastname :
+          {{ user.last_rname }}
+        </p>
+        <p class='fs-5'>
+          email :{{ user.email }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+{% block script %}
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <script> const form = document.querySelector('#follow-form') const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value form.addEventListener('submit',function(event) { event.preventDefault() const userID = event.target.dataset.userID axios({ method: 'post', url: `/accounts/${userID}/follow/`, headers: {'X-CSRFToKen': csrftoken,} }) .then((response) => { const isFollowed = response.data.is_followed const followBtn = document.querySelector('#follow-form > input[type=submit]') if (isFollowed === true) { followBtn.value = '언팔로우' } else { followBtn.value = '팔로우' } const followersCountTag = document.querySelector('#followers-count') const followingsCountTag = document.querySelector('#followings-count') const followersCount = response.data.followers_count const followingsCount = response.data.followings_count followersCountTag.innerText = followersCount followingsCountTag.innerText = followingsCount }) .catch((error) => { console.log(error.response) }) }) -->
+</script>
+{% endblock script %}
