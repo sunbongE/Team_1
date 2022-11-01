@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
   <h1>detail.html</h1>
+  <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>수정하기</a>
+  <form action="{% url 'reviews:delete' review.pk %}" method='POST'>
+    {% csrf_token %}
+    <input type="submit" value='삭제' class='btn btn-danger'>
+  </form>
   <div class="">
-
-    <img src="{{ review.image.url }}" alt="{{review.image}}">
+    {% if review.image.url %}
+      <img src="{{ review.image.url }}" alt="{{review.image}}">
+    {% endif %}
     <h3>
       {{ review.store_name }}
     </h3>
     등등등
   </div>
+  <a href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a>
 {% endblock content %}

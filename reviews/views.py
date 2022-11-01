@@ -36,14 +36,13 @@ def comment_create(request,detail_pk):
             comment.review=review
             comment.user = request.user
             comment.save()
-            pass
-            # return redirect("reviews:detail", detail_pk) # 댓글 작성 후 어디로 갈지 회의
+            return redirect("reviews:detail", detail_pk) 
     else:
-        comment_form=()
+        comment_form=CommentForm()
     context={
         'comment_form':comment_form
     }
-    return render(request,'reviews/comment.html')
+    return render(request,'reviews/comment.html',context)
 
 def comment_delete(request,detail_pk,comment_pk):
     detail = Review.objects.get(pk =detail_pk)   # 몇번 글인지? ( 가게 )
@@ -59,5 +58,31 @@ def detail(request,detail_pk):
         'review' : review,
     }
     return render(request,'reviews/detail.html',context)
+
+def update(request,detail_pk):
+    review = Review.objects.get(pk=detail_pk)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, request.FILES, instance=review)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.save()
+            return redirect("reviews:detail", detail_pk)
+    else:
+        form = ReviewForm(instance=review)
+
+    context = {
+        "form": form,
+    }
+    return render(request, "reviews/create.html", context)
+
+def delete(request,detail_pk):
+    if request.method=='POST':
+        review = Review.objects.get(pk=detail_pk)
+        review.user = request.user
+        review.delete()
+        return redirect('reviews:index')
+    else:
+        return redirect('reviews:detail', detail_pk)
 
 
