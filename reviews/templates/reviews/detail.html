@@ -2,6 +2,10 @@
 {% block content %}
   <h1>detail.html</h1>
   <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>수정하기</a>
+  <form action="{% url 'reviews:delete' review.pk %}" method='POST'>
+    {% csrf_token %}
+    <input type="submit" value='삭제' class='btn btn-danger'>
+  </form>
   <div class="">
     {% if review.image.url %}
       <img src="{{ review.image.url }}" alt="{{review.image}}">
@@ -9,6 +13,29 @@
     <h3>
       {{ review.store_name }}
     </h3>
+
+    <p>
+      {{ review.store_address }}
+    </p>
+    <p>
+      {{ review.phoneNumber }}
+    </p>
+    <p>
+      {{ review.parking }}
+    </p>
+    <p>
+      {{ review.price }}
+    </p>
+    <p>
+      {{ review.time }}
+    </p>
+    <p>
+      {{ review.breaktime }}
+    </p>
+    <p>
+      {{ review.content }}
+    </p>
+
   </div>
   <a href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a>
 
