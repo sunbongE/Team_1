@@ -28,14 +28,13 @@ TAG_CHOICES = {
   }
 
 class Comment(models.Model):
-    content = models.TextField()                                           # 리뷰 내용
-    image = models.ImageField(upload_to='images/', blank=True)             # 이미지
-    grade = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)]) # 평점
-    created_at = models.DateTimeField(auto_now_add=True)                   # 글 작성일
+    content = models.TextField()                                                            # 리뷰 내용
+    image = models.ImageField(upload_to='images/', blank=True)                              # 이미지
+    grade = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)])     # 평점
+    created_at = models.DateTimeField(auto_now_add=True)                                    # 글 작성일
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     Like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_comment')
-    tag = models.CharField(max_length=32, verbose_name="태그명", choices = TAG_CHOICES)            # 소비자 추천
-    # tag = models.CharField(max_length=32, verbose_name="태그명")            # 소비자 추천
+    tag = models.CharField(max_length=32, verbose_name="태그명", choices = TAG_CHOICES)     # 소비자 추천
 
     review = models.ForeignKey(
         Review,

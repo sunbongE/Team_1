@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 {% block content %}
   <h1>detail.html</h1>
   <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>수정하기</a>
@@ -37,18 +38,43 @@
     </p>
     <div class="" id='map' style='width:500px; height:500px;'></div>
   </div>
-  <a href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a>
-
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    이 집 평가하자
+  </button>
+  {% comment %} <a class='btn btn-primary' href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a> {% endcomment %}
+{% comment %} 댓글 {% endcomment %}
   <h2>맛 평가 리스트</h2>
   {% for comment in comments %}
-    <p>맛 평가:{{ comment.grade }}점</p>
-    <p>작성일:{{ comment.created_at }}</p>
-    <p>추천:{{ comment.tag }}</p>
-    {% if comment.image %}
+  <p>맛 평가:{{ comment.grade }}점</p>
+  <p>작성일:{{ comment.created_at }}</p>
+  <p>추천:{{ comment.tag }}</p>
+  <p>추천: {{ comment.content }}</p>
+  {% if comment.image %}
       <img src="{{ comment.image.url }}" alt="{{comment.image}}" width='180px;'>
     {% endif %}
 
   {% endfor %}
+  
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+  <form action="{% url 'reviews:comment_create' review.pk %}" method='POST' enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form comment_form %}
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <input type="submit" class="btn btn-primary">리뷰 작성</input>
+  </form>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div

@@ -33,7 +33,7 @@ def signup(request):
             raw_password = signup_form.cleaned_data.get('password1')
             user = authenticate(username = username, password = raw_password)
             auth_login(request,user)
-            return redirect('accounts:index')
+            return redirect('reviews:main')
 
     else:
         signup_form = CustomUserCreationForm()
@@ -53,7 +53,7 @@ def login(request):
             if login_form.is_valid():
                 auth_login(request,login_form.get_user()
                 )
-                return redirect(request.GET.get('next') or 'accounts:index' )
+                return redirect(request.GET.get('next') or 'reviews:index' )
         else:
             login_form = AuthenticationForm()
 
@@ -68,7 +68,7 @@ def login(request):
 def logout(request):
     auth_logout(request)
 
-    return redirect('accounts:index')
+    return redirect('reviews:main')
 
 @login_required
 def update(request):
@@ -87,8 +87,8 @@ def update(request):
 
     return render(request,'accounts/update.html',context)
 
+@login_required
 def profile(request,user_pk):
-
 
     User = get_user_model()
     person = User.objects.get(pk=user_pk)
@@ -98,6 +98,7 @@ def profile(request,user_pk):
     return render(request, 'accounts/profile.html', context)
 
 
+@login_required
 def follow(request,user_pk):
     
     User = get_user_model()
