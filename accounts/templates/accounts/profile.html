@@ -3,57 +3,96 @@
 {% bootstrap_javascript %}
 {% block content %}
 
-  <div class="d-flex flex-column col-10">
-    <div class="mx-3">
+  <div class="container d-flex flex-column align-items-center">
+    <div class="border border-1 rounded-5 p-5" style="background-color: white; width: 1000px;">
+      <div class="d-flex border border-1 flex-row" style="background-color: white;">
+        <div class="col-2 p-2 d-flex justify-content-center"> 
+          <div class="border rounded-circle" style="width:100px; height: 100px; overflow: hidden;">
+            <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800"> 
+          </div>
+        </div>
+        <div class="col-8 p-4 ">
+          <p>{{person.username}}</p>
+          <span id="followers-count">{{ person.followers.all|length }}</span>&nbsp;<b>팔로워</b> &nbsp;
+          <span id="followings-count">{{ person.followings.all|length }}</span>&nbsp;<b>팔로잉</b>
+        </div>
+        <div class="col-2 d-flex p-3 justify-content-center align-items-center">
+          <div class="mx-3">
+            {% if request.user != person %}
+            <form id="follow-form" data-user-id= "{{person.pk}}">
+              {% csrf_token %}
+              {% if request.user in person.followers.all %}
+              <input class="btn btn-danger" type="submit" value="언팔로우">
+              {% else %}
+              <input class="btn btn-primary" type="submit" value="팔로우">
+              {% endif %}
+            </form>
+            {% endif %}
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: whitesmoke;"> 
+          <h4> 리뷰한 가게들 </h4>
+          <hr>
+          <div class="d-flex flex-row justify-content-between">
+            <div class="card" style="width: 12rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">밥집</p>
+              </div>
+            </div>
+            <div class="card" style="width: 12rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">밥집</p>
+              </div>
+            </div>
+            <div class="card" style="width: 12rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">밥집</p>
+              </div>
+            </div>
+            <div class="card" style="width: 12rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">밥집</p>
+              </div>
+            </div>
+          </div>
+
+      </div>
       <div class="d-flex flex-row justify-content-between">
-        <div class="">
-          <h1 class="my-3">{{ person.username }}님의 프로필</h1>
+        <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: whitesmoke; width: 48%;"> 
+          <h4> 팔로잉 </h4>
+          <hr>
+          <div class="my-2"> 
+            <p class="my-1">팔로잉 목록</p>
+            {% for fw in person.followings.all %}
+            {{ fw.username }}
+            {% endfor %}
+          </div>
+        
         </div>
-        <div class="">
-          {% if request.user == person %}
-            <a class='btn btn-outline-dark mx-4 my-3' href="{% url 'accounts:update' %}">
-              회원 정보 수정
-            </a>
-          {% endif %}
+        <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: whitesmoke; width: 48%;"> 
+          <h4> 팔로워 </h4>
+          <hr>
         </div>
       </div>
 
-      <div class="">
-        <p class='fs-5'>
-          first name :
-          {{ person.first_name }}
-        </p>
-        <p class='fs-5'>
-          lastname :
-          {{ person.last_rname }}
-        </p>
-        <p class='fs-5'>
-          email :{{ person.email }}
-        </p>
+    </div>
+  
+
+    <div class="mx-3">
+      <div>
+
       </div>
-    </div>
-  </div>
 
-  <div class="mx-3">
-    <div>
-      팔로잉 :<span id="followings-count">{{ person.followings.all|length }}</span>  / 
-      팔로워 : <span id="followers-count">{{ person.followers.all|length }}</span>
     </div>
 
-  </div>
-  <div class="d-flex mx-3">
-    {% if request.user != person %}
-    <div class="align-self-center">
-      <form id="follow-form" data-user-id= "{{person.pk}}">
-        {% csrf_token %}
-        {% if request.user in person.followers.all %}
-        <input class="btn btn-danger" type="submit" value="언팔로우">
-        {% else %}
-        <input class="btn btn-primary" type="submit" value="팔로우">
-        {% endif %}
-      </form>
-    </div>
-    {% endif %}
   </div>
 {% endblock content %}
 
@@ -95,7 +134,11 @@
 
   })
 </script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
 
+    
+</script>
 {% endblock script %}
 
 <!--  안되는 코드
