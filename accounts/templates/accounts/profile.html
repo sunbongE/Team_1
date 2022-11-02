@@ -79,9 +79,22 @@
           </h4>
           <hr>
           <div class="my-2">
-            <p class="my-1">팔로잉 목록</p>
-            {% for fw in person.followings.all %}
-              {{ fw.username }}
+            {% for fw in following%}
+              <a href="{% url 'accounts:profile' fw.pk %}">
+                <div class="d-flex flex-row">
+                  <div class="border rounded-circle" style="width:100px; height: 100px; overflow: hidden;">
+                    <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
+                  </div>
+                  <div class="">
+                    <p>
+                      {{ fw.username }}
+                    </p>
+                    <span id="followers-count">{{ fw.followers.all|length }}</span>&nbsp;<b>팔로워</b>
+                    &nbsp;
+                    <span id="followings-count">{{ fw.followings.all|length }}</span>&nbsp;<b>팔로잉</b>
+                  </div>
+                </div>
+              </a>
             {% endfor %}
           </div>
 
@@ -91,6 +104,25 @@
             팔로워
           </h4>
           <hr>
+          <div class="my-2">
+            {% for fw in follower %}
+              <a href="{% url 'accounts:profile' fw.pk %}">
+                <div class="d-flex flex-row">
+                  <div class="border rounded-circle" style="width:100px; height: 100px; overflow: hidden;">
+                    <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
+                  </div>
+                  <div class="">
+                    <p>
+                      {{ fw.username }}
+                    </p>
+                    <span id="followers-count">{{ fw.followers.all|length }}</span>&nbsp;<b>팔로워</b>
+                    &nbsp;
+                    <span id="followings-count">{{ fw.followings.all|length }}</span>&nbsp;<b>팔로잉</b>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
         </div>
       </div>
 
