@@ -35,11 +35,75 @@
   </head>
 
   <body>
-    <head>
-      
-    </head>
-    <main class="">
+
+    <nav class="navbar bg-light ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">오메추</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}회원님</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'reviews:index' %}">추천받기</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:profile' request.user.pk %}">회원정보</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
+              </li>
+              {% else %}
+              <li>
+                <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">미정</a>
+              </li>
+              
+            </ul>
+            <form class="d-flex mt-3" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+    {% comment %} {% if request.user.is_authenticated %}
+      {% if request.user == user %}
+        <a class='btn btn-primary' href="{% url 'accounts:update' %}">
+          회원 정보 수정
+        </a>
+        <a class='btn btn-primary' href="{% url 'accounts:profile' user.pk %}">
+          프로필
+        </a>
+
+      {% endif %}
+    {% else %}
+      <h1>index</h1>
+      <a href="{% url 'accounts:login' %}" class='btn btn-primary'>로그인</a>
+      <br>
+      <a href="{% url 'accounts:signup' %}" class='btn btn-primary'>회원가입</a>
+
+    {% endif %} {% endcomment %}
+      <main>
+
         {% block content %}{% endblock %}
+      </main>
+
 
         {% bootstrap_javascript %}
     </main>
