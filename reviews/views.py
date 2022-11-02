@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect
 from reviews.models import Review,Comment
 from reviews.forms import CommentForm, ReviewForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+def main(request):
+    return render(request,'reviews/main.html')
+
 
 def index(request):
     reviews = Review.objects.all()
@@ -9,7 +13,8 @@ def index(request):
         'reviews' : reviews,
     }
     return render(request, 'reviews/index.html',context)
-
+    
+@login_required
 def create(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
@@ -27,6 +32,7 @@ def create(request):
     return render(request, "reviews/create.html", context)
 
 
+@login_required
 def comment_create(request,detail_pk):
     review = Review.objects.get(pk=detail_pk)
     if request.method == 'POST':
@@ -37,13 +43,11 @@ def comment_create(request,detail_pk):
             comment.user = request.user
             comment.save()
             return redirect("reviews:detail", detail_pk) 
-    else:
-        comment_form=CommentForm()
-    context={
-        'comment_form':comment_form
-    }
-    return render(request,'reviews/comment.html',context)
+   
+   
+    return redirect("reviews:detail", detail_pk) 
 
+@login_required
 def comment_delete(request,detail_pk,comment_pk):
     detail = Review.objects.get(pk =detail_pk)   # 몇번 글인지? ( 가게 )
     comment = Comment.objects.get(pk=comment_pk) # 어떤 댓글인지?(리뷰)
@@ -54,11 +58,18 @@ def comment_delete(request,detail_pk,comment_pk):
 
 def detail(request,detail_pk):
     review = Review.objects.get(pk=detail_pk)
+    comment_form = CommentForm
+    comments = review.comment_set.all()
+
     context = {
+        'comment_form':comment_form,
         'review' : review,
+        'comments':comments,
     }
     return render(request,'reviews/detail.html',context)
 
+
+@login_required
 def update(request,detail_pk):
     review = Review.objects.get(pk=detail_pk)
     if request.method == 'POST':
@@ -76,6 +87,7 @@ def update(request,detail_pk):
     }
     return render(request, "reviews/create.html", context)
 
+@login_required
 def delete(request,detail_pk):
     if request.method=='POST':
         review = Review.objects.get(pk=detail_pk)
