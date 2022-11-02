@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from reviews.models import Review,Comment
 from reviews.forms import CommentForm, ReviewForm
@@ -120,3 +121,15 @@ def mapmap(request):
     return render(request, 'reviews/map.html', context)
 
 
+def favorites(request,review_pk):
+    review = Review.objects.get(pk=review_pk)
+
+    if review.like_users.filter(pk=request.user.pk).exists():
+        review.like_users.remove(request.user)
+        is_favorites = False
+    else:
+        review.like_users.add(request.user) 
+        is_favorites=True   
+    data = {'is_favorites':is_favorites,'favorites_count':review.like_users.count()}
+    return JsonResponse(data)
+    

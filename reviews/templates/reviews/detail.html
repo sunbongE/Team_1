@@ -8,6 +8,7 @@
     <input type="submit" value='삭제' class='btn btn-danger'>
   </form>
   <div class="">
+    <p>즐겨찾기</p>
     {% if review.image %}
       <img src="{{ review.image.url }}" alt="{{review.image}}">
     {% endif %}
@@ -124,5 +125,11 @@
       }
     });
   </script>
-
 {% endblock content %}
+{% block script %}
+{% comment %} 비동기 즐겨찾기 {% endcomment %}
+
+
+
+
+{% endblock script %}
