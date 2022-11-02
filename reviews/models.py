@@ -20,8 +20,6 @@ class Review(models.Model):
     breaktime = models.CharField(max_length=30)                     # 쉬는 시간
     content = models.TextField()                                   # 식당소개
 
-
-
 TAG_CHOICES = {
       ('morning','아메추'), #오른쪽에 있는 것이 화면에 보인다.
       ('lunch', '점메추'),
