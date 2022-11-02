@@ -1,46 +1,82 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% block content %}
-  <h1>detail.html</h1>
-  <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>수정하기</a>
+<div class="container" style="width: 1300px; height: 500px;">
+  <div class="d-flex border border-1 rounded-5 flex-row mt-5 p-5" style="background-color: white;">
+    <div class="d-flex border rounded-5 align-self-center" style="width: 20rem; height: 20rem; overflow: hidden;">
+      {% if review.image %}
+      <img src="{{ review.image.url }}" style="width: 100%; height: 100%;" alt="{{review.image}}">
+      {% else %}
+      <img src="data:image/png;base64,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" style="width: 100%; height: 100%;" alt="{{review.image}}">
+      {% endif %}
+    </div>
+    <div class="mx-5" style="width: 60%;">
+      <h1>{{ review.store_name }}</h1>
+      <table class="table table-borderless mt-3">
+        <tbody>
+          <tr>
+            <th style="color:grey;">주소</th>
+            <th>{{ review.store_address }}</th>
+          </tr>
+          <tr>
+            <th style="color:grey;">전화번호</th>
+            <th>{{ review.phoneNumber }}</th>
+          </tr>
+          <tr>
+            <th style="color:grey;">주차</th>
+            <th>{{ review.parking }}</th>
+          </tr>
+          <tr>
+            <th style="color:grey;">가격대</th>
+            <th>{{ review.price }}</th>
+          </tr>
+          <tr>
+            <th style="color:grey;">영업시간</th>
+            <th>{{ review.time }}</th>
+          </tr>
+          <tr>
+            <th style="color:grey;">쉬는시간</th>
+            <th>{{ review.breaktime }}</th>
+          </tr>
+          <tr>
+            <th style="color:grey;">가게 소개</th>
+            <th>{{ review.content }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex flex-column">
+      <button type="button" style="opacity: 0.8;" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+          <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+      </button>
+      <span class="text-center">작성</span>
+      <br>
+      {% if request.user == review.user %}
+      <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+      </a>
+      <span class="text-center">수정</span>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+
   <form action="{% url 'reviews:delete' review.pk %}" method='POST'>
     {% csrf_token %}
     <input type="submit" value='삭제' class='btn btn-danger'>
   </form>
   <div class="">
-    {% if review.image.url %}
-      <img src="{{ review.image.url }}" alt="{{review.image}}">
-    {% endif %}
-    <h3>
-      {{ review.store_name }}
-    </h3>
 
-    <p>
-      {{ review.store_address }}
-    </p>
-    <p>
-      {{ review.phoneNumber }}
-    </p>
-    <p>
-      {{ review.parking }}
-    </p>
-    <p>
-      {{ review.price }}
-    </p>
-    <p>
-      {{ review.time }}
-    </p>
-    <p>
-      {{ review.breaktime }}
-    </p>
-    <p>
-      {{ review.content }}
-    </p>
+
 
   </div>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    이 집 평가하자
-  </button>
+
   {% comment %} <a class='btn btn-primary' href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a> {% endcomment %}
 {% comment %} 댓글 {% endcomment %}
   <h2>맛 평가 리스트</h2>
@@ -51,7 +87,7 @@
   <p>추천: {{ comment.content }}</p>
   {% if comment.image %}
       <img src="{{ comment.image.url }}" alt="{{comment.image}}" width='180px;'>
-    {% endif %}
+  {% endif %}
   
   {% endfor %}
 
