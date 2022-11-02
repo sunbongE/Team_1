@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
+
+from reviews.models import Review
 from .models import User
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth import login as auth_login
@@ -11,6 +13,7 @@ from django.views.decorators.http import require_POST
 
 
 # Create your views here.
+
 
 def index(request):
 

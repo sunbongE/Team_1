@@ -73,15 +73,17 @@
               </li>
               
             </ul>
-            <form class="d-flex mt-3" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <form class="d-flex" role="search" method="POST" action="{% url 'reviews:search' %}">
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='searched'>
+              <button class="btn btn-outline-light" type="submit">Search</button>
+            </form> 
           </div>
         </div>
       </div>
     </nav>
 
+    
 
     {% comment %} {% if request.user.is_authenticated %}
       {% if request.user == user %}
