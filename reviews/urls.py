@@ -14,4 +14,5 @@ urlpatterns = [
      path('<int:detail_pk>/delete/', views.delete, name='delete'),
      # path('map/',views.mapmap, name='map'),
      path('search/', views.search, name='search'),
+     path('<int:review_pk>/favorites/',views.favorites,name='favorites')# 즐겨찾기
 ]

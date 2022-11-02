@@ -83,25 +83,6 @@
       </div>
     </nav>
 
-    
-
-    {% comment %} {% if request.user.is_authenticated %}
-      {% if request.user == user %}
-        <a class='btn btn-primary' href="{% url 'accounts:update' %}">
-          회원 정보 수정
-        </a>
-        <a class='btn btn-primary' href="{% url 'accounts:profile' user.pk %}">
-          프로필
-        </a>
-
-      {% endif %}
-    {% else %}
-      <h1>index</h1>
-      <a href="{% url 'accounts:login' %}" class='btn btn-primary'>로그인</a>
-      <br>
-      <a href="{% url 'accounts:signup' %}" class='btn btn-primary'>회원가입</a>
-
-    {% endif %} {% endcomment %}
       <main>
 
         {% block content %}{% endblock %}
