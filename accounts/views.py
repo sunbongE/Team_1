@@ -75,13 +75,13 @@ def logout(request):
 
 @login_required
 def update(request):
-
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance = request.user)
         if form.is_valid():
-            form.save()
+            checker = form.save(commit=False)
+            form.user = request.user
+            checker.save()
             return redirect('accounts:index')
-
     else:
         form = CustomUserChangeForm(instance = request.user)
     context={
@@ -93,8 +93,7 @@ def update(request):
 @login_required
 def profile(request,user_pk):
 
-    User = get_user_model()
-    person = User.objects.get(pk=user_pk)
+    person = get_user_model().objects.get(pk=user_pk)
     context = {
         'person': person
     }

@@ -63,13 +63,13 @@ def comment_create(request,detail_pk):
 
 @login_required
 def comment_delete(request,detail_pk,comment_pk):
-    detail = Review.objects.get(pk =detail_pk)   # 몇번 글인지? ( 가게 )
     comment = Comment.objects.get(pk=comment_pk) # 어떤 댓글인지?(리뷰)
-    if request.user == comment.user:
+    if request.method=='POST' and comment.user == request.user :
         comment.delete()
-    return redirect('reviews:index')
-    # return redirect('reviews:detail',detail_pk)
-
+        return redirect('reviews:detail', detail_pk)
+    else:
+        return redirect('reviews:detail', detail_pk)
+    
 def detail(request,detail_pk):
     review = Review.objects.get(pk=detail_pk)
     comment_form = CommentForm
@@ -111,6 +111,7 @@ def delete(request,detail_pk):
     else:
         return redirect('reviews:detail', detail_pk)
 
+# 테스트용 map 함수
 def mapmap(request):
     reviews = Review.objects.all()
     context = {

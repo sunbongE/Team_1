@@ -11,20 +11,21 @@
   <div class="container" style="width: 1000px;">
     <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;"> 
       <h4 class="px-3"> 아침 메뉴 추천 </h4> <span class="text-end"> 추천 더보기 </span>
+
       <hr>
       <div class="d-flex flex-row justify-content-between">
         {% for review in reviews %}
-        <a href="{% url 'reviews:detail' review.pk %}">
-          <div class="card" style='width:18rem;'>
-            {% if review.image %}
-            <img src="{{ review.image.url }}" alt="{{review.image}}" class='card-img-top'>
-            {% endif %}
-            <div class="card-body">
-              {{review.store_name}}
+          <a href="{% url 'reviews:detail' review.pk %}">
+            <div class="card" style='width:18rem;'>
+              {% if review.image %}
+                <img src="{{ review.image.url }}" alt="{{review.image}}" class='card-img-top'>
+              {% endif %}
+              <div class="card-body">
+                {{review.store_name}}
+              </div>
             </div>
-          </div>
-        </a>
-      {% endfor %}
+          </a>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -89,6 +90,7 @@
     </div>
   </div>
 
-
-  <a href="{% url 'reviews:create' %}">가게 작성?</a>
+  {% if user.is_authenticated %}
+    <a href="{% url 'reviews:create' %}">가게 작성?</a>
+  {% endif %}
 {% endblock %}
