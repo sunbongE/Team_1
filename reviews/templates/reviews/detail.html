@@ -2,11 +2,13 @@
 {% load django_bootstrap5 %}
 {% block content %}
   <h1>detail.html</h1>
+  {% if review.user == request.user %}
   <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>수정하기</a>
   <form action="{% url 'reviews:delete' review.pk %}" method='POST'>
     {% csrf_token %}
     <input type="submit" value='삭제' class='btn btn-danger'>
   </form>
+  {% endif %}
   <div class="">
     {% if review.image %}
       <img src="{{ review.image.url }}" alt="{{review.image}}">
@@ -38,21 +40,35 @@
     </p>
     <div class="" id='map' style='width:500px; height:500px;'></div>
   </div>
+  
+  {% if user.is_authenticated %}
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     이 집 평가하자
   </button>
+  {% else %}
+  <button type="button" class="btn btn-primary disabled" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    이 집 평가하자
+  </button>
+  {% endif %}
   {% comment %} <a class='btn btn-primary' href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a> {% endcomment %}
 {% comment %} 댓글 {% endcomment %}
   <h2>맛 평가 리스트</h2>
   {% for comment in comments %}
+  <p>작성자 : <a href="{% url 'accounts:profile' comment.user.pk%}">{{comment.user}}</a></p>
   <p>맛 평가:{{ comment.grade }}점</p>
   <p>작성일:{{ comment.created_at }}</p>
   <p>추천:{{ comment.tag }}</p>
   <p>추천: {{ comment.content }}</p>
   {% if comment.image %}
       <img src="{{ comment.image.url }}" alt="{{comment.image}}" width='180px;'>
-    {% endif %}
-
+  {% endif %}
+    
+  {% if comment.user == request.user %}
+  <form action="{% url 'reviews:comment_delete' review.pk comment.pk%}" method= 'POST'>
+    {% csrf_token %}
+    <input type="submit" value='삭제' class='btn btn-danger'>
+  </form>
+  {% endif %}
   {% endfor %}
   
 <!-- Modal -->
