@@ -2,15 +2,8 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
-  <div class="">
-    <p>즐겨찾기</p>
-    {% if review.image %}
-      <img src="{{ review.image.url }}" alt="{{review.image}}">
-    {% endif %}
-    <h3 >
-      가게 이름: <span id='store_name'>{{ review.store_name }}</span>
-    </h3>
-
+ 
+   
 
 <div class="container" style="width: 1300px; height: 500px;">
   <div class="d-flex border border-1 rounded-5 flex-row mt-5 p-5" style="background-color: white;">
@@ -57,6 +50,16 @@
       </table>
     </div>
     <div class="d-flex flex-column">
+      <button type="button" style="opacity: 0.8;" class="btn btn-secondary" >
+        {% if request.user in review.like_users.all %}
+        <i id='fav-btn' data-review-id='{{ review.pk }}' class="bi bi-star-fill"></i>
+        {% else %}
+        <i id='fav-btn' data-review-id='{{ review.pk }}' class="bi bi-star"></i>
+        {% endif %}
+      </button>
+      <span id='fav-count'>{{ review.like_users.count }}</span>
+      <span class="text-center">즐겨찾기</span>
+      <br>
       <button type="button" style="opacity: 0.8;" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
           <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
@@ -189,8 +192,31 @@
 {% endblock content %}
 {% block script %}
 {% comment %} 비동기 즐겨찾기 {% endcomment %}
+<script>
+const favBtn = document.querySelector('#fav-btn')
+
+favBtn.addEventListener('click', function (event) {
+  console.log(event.target.dataset)
+  console.log(event.target.dataset.reviewId)
+  
+  axios({
+    method:'get',
+    url:`/${event.target.dataset.reviewId}/favorites/`
+  })
+  .then(response => {
+    if (response.data.is_favorites === true) { // 즐찾 했으면
+      event.target.classList.add('bi-star-fill')
+      event.target.classList.remove('bi-star')
+    } else {
+      event.target.classList.add('bi-star')
+      event.target.classList.remove('bi-star-fill')
+    }
+    const favCount = document.querySelector('#fav-count')
+    favCount.innerText = response.data.favorites_count
+  })
+})
 
 
 
-
+</script>
 {% endblock script %}
