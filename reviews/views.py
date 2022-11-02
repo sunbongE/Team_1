@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from reviews.models import Review,Comment
 from reviews.forms import CommentForm, ReviewForm
 from django.contrib.auth.decorators import login_required
+import json
 # Create your views here.
 
 def index(request):
@@ -94,5 +95,13 @@ def delete(request,detail_pk):
         return redirect('reviews:index')
     else:
         return redirect('reviews:detail', detail_pk)
+
+def mapmap(request):
+    reviews = Review.objects.all()
+    context = {
+        'reviews' : reviews,
+        'adrs_js': json.dumps([review.json() for review in reviews])
+    }
+    return render(request, 'reviews/map.html', context)
 
 
