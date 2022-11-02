@@ -6,6 +6,19 @@ from django.contrib.auth.decorators import login_required
 def main(request):
     return render(request,'reviews/main.html')
 
+def search(request):
+    if request.method=='POST':
+        searched = request.POST['searched']
+        reviews = Review.objects.filter(store_name__contains=searched)
+        context = {
+            'searched' : searched,
+            'reviews' : reviews,
+        }
+        return render(request, 'reviews/search.html', context)
+    else:
+        return render(request, 'reviews/search.html')
+
+
 
 def index(request):
     reviews = Review.objects.all()
