@@ -95,7 +95,9 @@ def profile(request,user_pk):
 
     person = get_user_model().objects.get(pk=user_pk)
     context = {
-        'person': person
+        'person': person,
+        'following': person.followings.order_by('followers')[:3],
+        'follower': person.followers.order_by('followings')[:3],
     }
     return render(request, 'accounts/profile.html', context)
 
