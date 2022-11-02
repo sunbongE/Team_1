@@ -3,6 +3,9 @@ from reviews.models import Review,Comment
 from reviews.forms import CommentForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
+def main(request):
+    return render(request,'reviews/main.html')
+
 
 def index(request):
     reviews = Review.objects.all()
