@@ -11,30 +11,30 @@
     {% if review.image %}
       <img src="{{ review.image.url }}" alt="{{review.image}}">
     {% endif %}
-    <h3>
-      {{ review.store_name }}
+    <h3 >
+      가게 이름: <span id='store_name'>{{ review.store_name }}</span>
     </h3>
 
     <p>
-      {{ review.store_address }}
+      주소: <span id="address_">{{ review.store_address }}</span>
     </p>
     <p>
-      {{ review.phoneNumber }}
+      전화번호: {{ review.phoneNumber }}
     </p>
     <p>
-      {{ review.parking }}
+      주차가능: {{ review.parking }}
     </p>
     <p>
-      {{ review.price }}
+      가격대: {{ review.price }}
     </p>
     <p>
-      {{ review.time }}
+      영업시간: {{ review.time }}
     </p>
     <p>
-      {{ review.breaktime }}
+      쉬는 시간: {{ review.breaktime }}
     </p>
     <p>
-      {{ review.content }}
+      맛집정보: {{ review.content }}
     </p>
     <div class="" id='map' style='width:500px; height:500px;'></div>
   </div>
@@ -96,8 +96,10 @@
       .services
       .Geocoder();
 
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('서울 마포구 동교로38길 27-4 1층', function (result, status) {
+    // 주소로 좌표를 검색합니다 {{ review.store_address  }} 느낌
+    const address_ = document.querySelector('#address_')
+    console.log(address_.innerText)
+    geocoder.addressSearch(`${address_.innerText}`, function (result, status) {
 
       // 정상적으로 검색이 완료됐으면
       if (status === kakao.maps.services.Status.OK) {
@@ -112,9 +114,10 @@
           .Marker({map: map, position: coords});
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
+        const store_name = document.querySelector('#store_name')
         var infowindow = new kakao
           .maps
-          .InfoWindow({content: '<div style="width:150px;text-align:center;padding:6px 0;">하나라멘</div>'});
+          .InfoWindow({content: `'<div style="width:150px;text-align:center;padding:6px 0;">${store_name.innerText} </div>'`});
         infowindow.open(map, marker);
 
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
