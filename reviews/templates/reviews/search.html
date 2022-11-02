@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if searched %}
+    <h1 class='mb-5 my-5'>"
+      {{ searched }}
+      "에 대한 검색정보</h1>
+    {% for review in reviews %}
+      <h4>
+        <a href="{% url 'reviews:detail' review.pk %}" class="text-decoration-none text-black">
+          {{review.user}}
+          |{{ review.store_name}}|{{ review.created_at }}
+        </a>
+        <br>
+        <hr>
+      {% endfor %}
+    </h4>
+  {% else %}
+    <h1 class='mb-5 my-5 text-center'>검색정보가 없습니다.</h1>
+  {% endif %}
+{% endblock content %} 

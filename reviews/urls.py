@@ -12,4 +12,6 @@ urlpatterns = [
      path('<int:detail_pk>/', views.detail, name='detail'),
      path('<int:detail_pk>/update/', views.update, name='update'),
      path('<int:detail_pk>/delete/', views.delete, name='delete'),
+     path('map/',views.mapmap, name='map'),
+     path('search/', views.search, name='search'),
 ]

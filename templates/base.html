@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b62bd4508f230ae2e712536cca32f00&libraries=services"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 
     {% bootstrap_css %}
@@ -35,11 +36,77 @@
   </head>
 
   <body>
-    <head>
-      
-    </head>
-    <main class="">
+
+    <nav class="navbar bg-light ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">오메추</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}회원님</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'reviews:index' %}">추천받기</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:profile' request.user.pk %}">회원정보</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
+              </li>
+              {% else %}
+              <li>
+                <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">미정</a>
+              </li>
+              
+            </ul>
+            <form class="d-flex" role="search" method="POST" action="{% url 'reviews:search' %}">
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='searched'>
+              <button class="btn btn-outline-light" type="submit">Search</button>
+            </form> 
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    
+
+    {% comment %} {% if request.user.is_authenticated %}
+      {% if request.user == user %}
+        <a class='btn btn-primary' href="{% url 'accounts:update' %}">
+          회원 정보 수정
+        </a>
+        <a class='btn btn-primary' href="{% url 'accounts:profile' user.pk %}">
+          프로필
+        </a>
+
+      {% endif %}
+    {% else %}
+      <h1>index</h1>
+      <a href="{% url 'accounts:login' %}" class='btn btn-primary'>로그인</a>
+      <br>
+      <a href="{% url 'accounts:signup' %}" class='btn btn-primary'>회원가입</a>
+
+    {% endif %} {% endcomment %}
+      <main>
+
         {% block content %}{% endblock %}
+      </main>
+
 
         {% bootstrap_javascript %}
     </main>

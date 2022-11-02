@@ -11,12 +11,12 @@
       {% endif %}
     </div>
     <div class="mx-5" style="width: 60%;">
-      <h1>{{ review.store_name }}</h1>
+      <h1 id='store_name'>{{ review.store_name }}</h1>
       <table class="table table-borderless mt-3">
         <tbody>
           <tr>
             <th style="color:grey;">주소</th>
-            <th>{{ review.store_address }}</th>
+            <th id="address_">{{ review.store_address }}</th>
           </tr>
           <tr>
             <th style="color:grey;">전화번호</th>
@@ -71,13 +71,18 @@
     {% csrf_token %}
     <input type="submit" value='삭제' class='btn btn-danger'>
   </form>
-  <div class="">
 
 
 
-  </div>
+
 
   {% comment %} <a class='btn btn-primary' href="{% url 'reviews:comment_create' review.pk %}">이 집 평가하자</a> {% endcomment %}
+
+    <div class="" id='map' style='width:500px; height:500px;'></div>
+  </div>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    이 집 평가하자
+  </button>
 {% comment %} 댓글 {% endcomment %}
   <h2>맛 평가 리스트</h2>
   {% for comment in comments %}
@@ -88,9 +93,9 @@
   {% if comment.image %}
       <img src="{{ comment.image.url }}" alt="{{comment.image}}" width='180px;'>
   {% endif %}
-  
+ 
   {% endfor %}
-
+  
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -112,6 +117,54 @@
   </div>
 </div>
 
+  <script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+      mapOption = {
+        center: new kakao
+          .maps
+          .LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+      };
 
+    // 지도를 생성합니다
+    var map = new kakao
+      .maps
+      .Map(mapContainer, mapOption);
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao
+      .maps
+      .services
+      .Geocoder();
+
+    // 주소로 좌표를 검색합니다 {{ review.store_address  }} 느낌
+    const address_ = document.querySelector('#address_')
+    console.log(address_.innerText)
+    geocoder.addressSearch(`${address_.innerText}`, function (result, status) {
+
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao
+          .maps
+          .LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao
+          .maps
+          .Marker({map: map, position: coords});
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        const store_name = document.querySelector('#store_name')
+        var infowindow = new kakao
+          .maps
+          .InfoWindow({content: `'<div style="width:150px;text-align:center;padding:6px 0;">${store_name.innerText} </div>'`});
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+      }
+    });
+  </script>
 
 {% endblock content %}
