@@ -44,7 +44,15 @@
         </button>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}회원님</h5>
+            {% if request.user.is_owner == True %}
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}
+                사장님</h5>
+
+            {% else %}
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}
+                회원님</h5>
+            {% endif %}
+
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
@@ -59,6 +67,15 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
                 </li>
+                {% if user.is_superuser %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:check' %}">사업자요청 확인</a>
+                  </li>
+                {% elif not user.is_owner %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:to_owner' %}">사업자요청</a>
+                  </li>
+                {% endif %}
               {% else %}
                 <li>
                   <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
@@ -67,9 +84,6 @@
                   <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
                 </li>
               {% endif %}
-              <li class="nav-item">
-                <a class="nav-link" href="#">미정</a>
-              </li>
 
             </ul>
             <form class="d-flex" role="search" method="POST" action="{% url 'reviews:search' %}">
