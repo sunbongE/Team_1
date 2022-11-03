@@ -2,6 +2,45 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
+<div class="modal">
+  <div class="modal_body">
+    <div class="d-flex flex-column">
+      <h2 class="mb-5"> 리뷰 작성 </h2>
+      <div>
+        <form action="{% url 'reviews:comment_create' review.pk %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="mb-3">
+            <textarea style="resize: none; border:1px solid #000000" name="content" cols="40" rows="10" class="form-control" placeholder="맛 평가" required="" id="id_content"></textarea>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div class="mb-3 px-2" style="width: 50%;">
+              <label class="form-label" for="id_grade">평점</label>
+              <input type="number" name="grade" class="form-control" placeholder="평점" required="" id="id_grade">
+            </div>
+            <div class="mb-3 px-2" style="width: 50%;"><label class="form-label" for="id_tag">태그명</label>
+              <select name="tag" class="form-select" required="" id="id_tag">
+                <option value="" selected="">---------</option>
+                <option value="lunch">점메추</option>
+                <option value="dinner">저메추</option>
+                <option value="midnight_snack">야메추</option>
+                <option value="morning">아메추</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="id_image">음식 사진</label>
+            <input size="50" type="file" name="image" accept="image/*" class="form-control" id="id_image">
+          </div>
+          <div class="d-flex justify-content-end">          
+            <input type="submit" class="btn btn-primary ">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="d-flex flex-column align-items-self mx-auto justify-content-center" style="width: 1000px;">
   <div class="d-flex border border-1 rounded-5 flex-row mt-5 p-5" style="background-color: white;">
     <div class="d-flex border rounded-5 align-self-center" style="width: 16rem; height: 16rem; overflow: hidden;">
@@ -58,7 +97,7 @@
       <span id='fav-count' class="text-center">{{ review.like_users.count }}</span>
       <span class="text-center">즐겨찾기</span>
       <br>
-      <button type="button" style="opacity: 0.8;" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button type="button" style="opacity: 0.8;" class="btn btn-secondary" id="modal-open">
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
           <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
         </svg>
@@ -215,25 +254,6 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-        <form action="{% url 'reviews:comment_create' review.pk %}" method='POST' enctype="multipart/form-data">
-          {% csrf_token %}
-          {% bootstrap_form comment_form %}
-          <input type="submit" class="btn btn-primary">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
   <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -313,5 +333,28 @@ favBtn.addEventListener('click', function (event) {
 
 
 
+</script>
+<script>
+  const body = document.querySelector('body');
+  const modal = document.querySelector('.modal');
+  const btnOpenPopup = document.querySelector('#modal-open');
+
+  btnOpenPopup.addEventListener('click', () => {
+    modal.classList.toggle('show');
+
+    if (modal.classList.contains('show')) {
+      body.style.overflow = 'hidden';
+    }
+  });
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      modal.classList.toggle('show');
+
+      if (!modal.classList.contains('show')) {
+        body.style.overflow = 'auto';
+      }
+    }
+  });
 </script>
 {% endblock script %}
