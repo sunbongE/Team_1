@@ -70,6 +70,9 @@
               <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}
                 사장님</h5>
 
+            {% elif request.user.is_superuser %}
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}
+                관리자님</h5>
             {% else %}
               <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ request.user.username}}
                 회원님</h5>
@@ -100,7 +103,7 @@
                 {% endif %}
                 {% if request.user.is_owner == True %}
                   <li class="nav-item">
-                    <a href="{% url 'reviews:create' %}">가게 작성</a>
+                    <a class='text-decoration-none text-dark' href="{% url 'reviews:create' %}">가게 작성</a>
                   </li>
                 {% endif %}
               {% else %}
@@ -113,6 +116,7 @@
               {% endif %}
 
             </ul>
+            <br>
             <form class="d-flex" role="search" method="POST" action="{% url 'reviews:search' %}">
               {% csrf_token %}
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='searched'>
