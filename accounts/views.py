@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect, get_object_or_404
 
+ 
 from reviews.models import Review, Comment
-from .models import User
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import User,Isowner
+from .forms import CustomUserCreationForm, CustomUserChangeForm, IsownerForm
+ 
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -128,3 +130,34 @@ def follow(request,user_pk):
         "followers_count":you.followers.count(),
     }
     return JsonResponse(context)
+
+
+def to_owner(request):
+    if request.method == 'POST':
+        form = IsownerForm(request.POST)
+        if form.is_valid():
+            owner=form.save(commit=False)
+            owner.user = request.user
+            owner.save()
+            return redirect('reviews:index')
+    else:
+        form = IsownerForm()
+    context ={
+        'form':form
+    }
+    return render(request, 'accounts/to_owner.html',context)
+
+
+def check(request):
+    lists = Isowner.objects.all()   
+    return render(request,'accounts/check.html',{'lists':lists,})
+
+
+def approve(request,pk,user_pk):
+    if request.user.is_superuser:
+        lst = Isowner.objects.get(pk=pk)
+        user = get_user_model().objects.get(pk=user_pk)
+        user.is_owner = 1
+        user.save()
+        lst.delete()
+        return redirect("accounts:check")

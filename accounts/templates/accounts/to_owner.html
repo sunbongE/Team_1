@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+  <div class="container">
+
+    <h1 class='text-center mb-5'>사업자 요청</h1>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <input class='btn btn-success' type="submit">
+    </form>
+  </div>
+
+{% endblock %}
