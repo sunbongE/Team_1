@@ -2,12 +2,9 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
- 
-   
-
-<div class="container" style="width: 1300px; height: 500px;">
+<div class="d-flex flex-column align-items-self mx-auto justify-content-center" style="width: 1000px;">
   <div class="d-flex border border-1 rounded-5 flex-row mt-5 p-5" style="background-color: white;">
-    <div class="d-flex border rounded-5 align-self-center" style="width: 20rem; height: 20rem; overflow: hidden;">
+    <div class="d-flex border rounded-5 align-self-center" style="width: 16rem; height: 16rem; overflow: hidden;">
       {% if review.image %}
       <img src="{{ review.image.url }}" style="width: 100%; height: 100%;" alt="{{review.image}}">
       {% else %}
@@ -50,6 +47,7 @@
       </table>
     </div>
     <div class="d-flex flex-column">
+      {% if user.is_authenticated %}
       <button type="button" style="opacity: 0.8;" class="btn btn-secondary" >
         {% if request.user in review.like_users.all %}
         <i id='fav-btn' data-review-id='{{ review.pk }}' class="bi bi-star-fill"></i>
@@ -66,6 +64,15 @@
         </svg>
       </button>
       <span class="text-center">작성</span>
+      {% else %}
+      <button type="button" style="opacity: 0.8;" class="btn btn-secondary disabled" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+          <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+      </button>
+      <span class="text-center">작성</span>
+      {% endif %}
+
       <br>
       {% if request.user == review.user %}
       <a href="{% url 'reviews:update' review.pk%}" class='btn btn-success'>
@@ -84,41 +91,119 @@
       
     </div>
   </div>
+  <div class="d-flex border border-1 rounded-5 flex-row mt-5 p-5" id='map' style='width:100%; height:500px;'></div>
+  <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-5" style="background-color: white;">
+    {% for comment in comments %}
+      <div class="border border-1 py-4 px-4 my-3 rounded-5 d-flex flex-row"  style="background-color: whitesmoke;">
+        <div class="d-flex border rounded-5 align-self-center" style="width: 20rem; height: 20rem; overflow: hidden;">
+          {% if comment.image %}
+          <img src="{{ comment.image.url }}" style="width: 100%; height: 100%;" alt="{{comment.image}}">
+          {% else %}
+          <img src="data:image/png;base64,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" style="width: 100%; height: 100%;" alt="{{comment.image}}">
+          {% endif %}
+        </div>
 
-</div>
+        <div class="d-flex flex-column mx-4" style="width: 60%;">
+          <div class="d-flex">
+            <div class="border rounded-circle" style="width:60px; height: 60px; overflow: hidden;">
+              <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
+            </div>
+            <a class ="m-3 align-self-center fs-4" href="{% url 'accounts:profile' comment.user.pk%}">{{comment.user}}</a>
+          </div>
+          <div class="py-2">       
+            <div class="d-flex flex-row mb-2 fs-3">
+              {% if comment.grade == 0.5 %}
+                <div class="text-warning bi-star-half"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 1.0 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 1.5 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-half"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 2.0 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 2.5 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-half"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 3.0 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 3.5 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-half"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 4.0 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star"></div>
+              {% elif comment.grade == 4.5 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-half"></div>
+              {% elif comment.grade == 5.0 %}
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+                <div class="text-warning bi-star-fill"></div>
+              {% endif %}
+              <span class="fs-6 align-self-center">&nbsp; {{ comment.created_at|date:'n월 j일' }}</span>
+            </div>   
 
-    <div class="" id='map' style='width:500px; height:500px;'></div>
-</div>
-  
-  {% if user.is_authenticated %}
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    이 집 평가하자
-  </button>
-  {% else %}
-  <button type="button" class="btn btn-primary disabled" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    이 집 평가하자
-  </button>
-  {% endif %}
-{% comment %} 댓글 {% endcomment %}
-  <h2>맛 평가 리스트</h2>
-  {% for comment in comments %}
-  <p>작성자 : <a href="{% url 'accounts:profile' comment.user.pk%}">{{comment.user}}</a></p>
-  <p>맛 평가:{{ comment.grade }}점</p>
-  <p>작성일:{{ comment.created_at }}</p>
-  <p>추천:{{ comment.tag }}</p>
-  <p>추천: {{ comment.content }}</p>
-  {% if comment.image %}
-      <img src="{{ comment.image.url }}" alt="{{comment.image}}" width='180px;'>
-  {% endif %}
+            <span class="align-middle fs-5">{{ comment.content }}</span>
+
+          </div>
+
+          <p>추천:{{ comment.tag }}</p>
+          
+        </div>
+        {% if comment.user == request.user %}
+        <form action="{% url 'reviews:comment_delete' review.pk comment.pk%}" method= 'POST'>
+          {% csrf_token %}
+          <button type="submit" value='삭제' class='btn link-secondary'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+          </button>
+        </form>
+        {% endif %}
+      </div>  
+    {% endfor %}
     
-  {% if comment.user == request.user %}
-  <form action="{% url 'reviews:comment_delete' review.pk comment.pk%}" method= 'POST'>
-    {% csrf_token %}
-    <input type="submit" value='삭제' class='btn btn-danger'>
-  </form>
-  {% endif %}
- {% endfor %}
-  
+
+  </div>
+
+
+</div>
+
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
