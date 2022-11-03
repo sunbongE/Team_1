@@ -24,8 +24,16 @@ def search(request):
 
 def index(request):
     reviews = Review.objects.all()
+    tag_morning = Comment.objects.filter(tag__contains='morning')
+    tag_lunch = Comment.objects.filter(tag__contains='lunch')
+    tag_dinner = Comment.objects.filter(tag__contains='dinner')
+    tag_midnight_snack = Comment.objects.filter(tag__contains='midnight_snack')
     context = {
         'reviews' : reviews,
+        'tag_morning' : tag_morning,
+        'tag_lunch' : tag_lunch,
+        'tag_dinner' :tag_dinner, 
+        'tag_midnight_snack' :tag_midnight_snack,
     }
     return render(request, 'reviews/index.html',context)
     
@@ -112,12 +120,20 @@ def delete(request,detail_pk):
     else:
         return redirect('reviews:detail', detail_pk)
 
-# 테스트용 map 함수
+# 테스트용 함수
 def mapmap(request):
     reviews = Review.objects.all()
+    comment_morning = Comment.objects.filter(tag__contains='morning')
+    comment_lunch = Comment.objects.filter(tag__contains='lunch')
+    comment_dinner = Comment.objects.filter(tag__contains='dinner')
+    comment_midnight_snack = Comment.objects.filter(tag__contains='midnight_snack')
+    
     context = {
         'reviews' : reviews,
-        'adrs_js': json.dumps([review.json() for review in reviews])
+        'comment_morning' : comment_morning,
+        'comment_lunch' : comment_lunch,
+        'comment_dinner' :comment_dinner, 
+        'comment_midnight_snack' :comment_midnight_snack,
     }
     return render(request, 'reviews/map.html', context)
 

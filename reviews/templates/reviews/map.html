@@ -22,7 +22,28 @@
       <!-- place navbar here -->
     </header>
     <main>
-      <div id="map" style="width:500px;height:400px;"></div>
+      <p>왜 안나와아아아</p>
+      {% for tl in comment_morning %}
+        {{ tl.content }}<br>{{ tl.tag}}<br>{{ tl.review}}
+        <a href="{% url 'reviews:detail' tl.review.pk %}">{{ tl.review.store_name}}</a>
+      {% endfor %}
+
+      {% for tl in comment_lunch %}
+        {{ tl.content }}<br>{{ tl.tag}}<br>{{ tl.review}}
+        <a href="{% url 'reviews:detail' tl.review.pk %}">{{ tl.review.store_name}}</a>
+      {% endfor %}
+
+      {% for tl in comment_dinner %}
+        {{ tl.content }}<br>{{ tl.tag}}<br>{{ tl.review}}
+        <a href="{% url 'reviews:detail' tl.review.pk %}">{{ tl.review.store_name}}</a>
+      {% endfor %}
+
+      {% for tl in comment_midnight_snack %}
+        {{ tl.content }}<br>{{ tl.tag}}<br>{{ tl.review}}
+        <a href="{% url 'reviews:detail' tl.review.pk %}">{{ tl.review.store_name}}</a>
+      {% endfor %}
+      <p>으아아아아</p>
+      <div id="map" style="width:500px;height:400px;" class='mt-5'></div>
 
     </main>
 

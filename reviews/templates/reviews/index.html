@@ -9,94 +9,133 @@
   </div>
 
   <div class="container" style="width: 1000px;">
-    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;"> 
-      <h4 class="px-3"> 아침 메뉴 추천 </h4> <span class="text-end"> 추천 더보기 </span>
+    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;">
+      <h4 class="px-3">
+        아침 메뉴 추천
+      </h4>
+      <span class="text-end">
+        추천 더보기
+      </span>
       <hr>
       <div class="swiper-container" style="width: 900px;">
         <div class="swiper-wrapper">
-          {% for review in reviews %}
-          {% if review.image %}
-          <div class="swiper-slide">
-            <a href="{% url 'reviews:detail' review.pk %}">
-              <img src="{{review.image.url}}">
+          {% for tm in tag_mording %}
+            <a href="{% url 'reviews:detail' tm.review.pk %}">
+              <div class="card" style='width:18rem;'>
+                {% if tm.review.image %}
+                  <img src="{{ tm.review.image.url }}" alt="{{tm.review.image}}" class='card-img-top'>
+                {% endif %}
+                <div class="card-body">
+                  {{tm.review.store_name}}
+                </div>
+              </div>
             </a>
-          </div>
-          {% endif %}
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
-        <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-        <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+        <div class="swiper-button-next"></div>
+        <!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+        <div class="swiper-button-prev"></div>
+        <!-- 이전 버튼 -->
       </div>
     </div>
   </div>
   <div class="container" style="width: 1000px;">
-    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;"> 
-      <h4 class="px-3"> 점심 메뉴 추천 </h4> <span class="text-end"> 추천 더보기 </span>
+    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;">
+      <h4 class="px-3">
+        점심 메뉴 추천
+      </h4>
+      <span class="text-end">
+        추천 더보기
+      </span>
       <hr>
       <div class="swiper-container" style="width: 900px;">
         <div class="swiper-wrapper">
-          {% for review in reviews %}
-          {% if review.image %}
-          <div class="swiper-slide">
-            <a href="{% url 'reviews:detail' review.pk %}">
-              <img src="{{review.image.url}}">
+          {% for tl in tag_lunch %}
+            <a href="{% url 'reviews:detail' tl.review.pk %}">
+              <div class="card" style='width:18rem;'>
+                {% if tl.review.image %}
+                  <img src="{{ tl.review.image.url }}" alt="{{tl.review.image}}" class='card-img-top'>
+                {% endif %}
+                <div class="card-body">
+                  {{tl.review.store_name}}
+                </div>
+              </div>
             </a>
-          </div>
-          {% endif %}
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
-        <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-        <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+        <div class="swiper-button-next"></div>
+        <!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+        <div class="swiper-button-prev"></div>
+        <!-- 이전 버튼 -->
       </div>
     </div>
   </div>
   <div class="container" style="width: 1000px;">
-    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;"> 
-      <h4 class="px-3"> 저녁 메뉴 추천 </h4> <span class="text-end"> 추천 더보기 </span>
+    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;">
+      <h4 class="px-3">
+        저녁 메뉴 추천
+      </h4>
+      <span class="text-end">
+        추천 더보기
+      </span>
       <hr>
       <div class="swiper-container" style="width: 900px;">
         <div class="swiper-wrapper">
-          {% for review in reviews %}
-          {% if review.image %}
-          <div class="swiper-slide">
-            <a href="{% url 'reviews:detail' review.pk %}">
-              <img src="{{review.image.url}}">
+          {% for td in tag_dinner %}
+            <a href="{% url 'reviews:detail' td.review.pk %}">
+              <div class="card" style='width:18rem;'>
+                {% if td.review.image %}
+                  <img src="{{ td.review.image.url }}" alt="{{td.review.image}}" class='card-img-top'>
+                {% endif %}
+                <div class="card-body">
+                  {{td.review.store_name}}
+                </div>
+              </div>
             </a>
-          </div>
-          {% endif %}
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
-        <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-        <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+        <div class="swiper-button-next"></div>
+        <!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+        <div class="swiper-button-prev"></div>
+        <!-- 이전 버튼 -->
       </div>
     </div>
   </div>
   <div class="container" style="width: 1000px;">
-    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;"> 
-      <h4 class="px-3"> 야식 메뉴 추천 </h4> <span class="text-end"> 추천 더보기 </span>
+    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;">
+      <h4 class="px-3">
+        야식 메뉴 추천
+      </h4>
+      <span class="text-end">
+        추천 더보기
+      </span>
       <hr>
       <div class="swiper-container" style="width: 900px;">
         <div class="swiper-wrapper">
-          {% for review in reviews %}
-          {% if review.image %}
-          <div class="swiper-slide">
-            <a href="{% url 'reviews:detail' review.pk %}">
-              <img src="{{review.image.url}}">
+          {% for tms in tag_midnight_snack %}
+            <a href="{% url 'reviews:detail' tms.review.pk %}">
+              <div class="card" style='width:18rem;'>
+                {% if tms.review.image %}
+                  <img src="{{ tms.review.image.url }}" alt="{{tms.review.image}}" class='card-img-top'>
+                {% endif %}
+                <div class="card-body">
+                  {{tms.review.store_name}}
+                </div>
+              </div>
             </a>
-          </div>
-          {% endif %}
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
-        <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-        <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+        <div class="swiper-button-next"></div>
+        <!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+        <div class="swiper-button-prev"></div>
+        <!-- 이전 버튼 -->
       </div>
     </div>
   </div>
-
 
   {% if user.is_authenticated %}
     <a href="{% url 'reviews:create' %}">가게 작성?</a>
@@ -104,27 +143,27 @@
 {% endblock %}
 
 {% block script %}
-<script>
-  new Swiper('.swiper-container', {
+  <script>
+    new Swiper('.swiper-container', {
 
-      slidesPerView : 3, // 동시에 보여줄 슬라이드 갯수
-      spaceBetween : 30, // 슬라이드간 간격
-      slidesPerGroup : 3, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+      slidesPerView: 3, // 동시에 보여줄 슬라이드 갯수
+      spaceBetween: 30, // 슬라이드간 간격
+      slidesPerGroup: 3, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
 
       // 그룹수가 맞지 않을 경우 빈칸으로 메우기
       // 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
-      loopFillGroupWithBlank : true,
+      loopFillGroupWithBlank: true,
 
-      loop : true, // 무한 반복
+      loop: true, // 무한 반복
 
-      pagination : { // 페이징
-        el : '.swiper-pagination',
-        clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+      pagination: { // 페이징
+        el: '.swiper-pagination',
+        clickable: true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
       },
-      navigation : { // 네비게이션
-        nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-        prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-      },
-  });
-</script>
+      navigation: { // 네비게이션
+        nextEl: '.swiper-button-next', // 다음 버튼 클래스명
+        prevEl: '.swiper-button-prev', // 이번 버튼 클래스명
+      }
+    });
+  </script>
 {% endblock script%}
