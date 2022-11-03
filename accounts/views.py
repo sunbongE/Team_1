@@ -18,15 +18,11 @@ from django.views.decorators.http import require_POST
 
 
 def index(request):
-
     users = User.objects.all()
-
     context = {
         'users' : users
     }
-
     return render(request,'accounts/index.html',context)
-
 
 def signup(request):
     if request.method == 'POST':
@@ -68,7 +64,7 @@ def login(request):
         return render(request,'accounts/login.html',context)
 
     else:
-        return redirect('accounts:index')
+        return redirect('reviews:index')
 
 def logout(request):
     auth_logout(request)
@@ -83,7 +79,7 @@ def update(request):
             checker = form.save(commit=False)
             form.user = request.user
             checker.save()
-            return redirect('accounts:index')
+            return redirect('accounts:profile', form.user.pk)
     else:
         form = CustomUserChangeForm(instance = request.user)
     context={
