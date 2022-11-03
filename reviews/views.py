@@ -21,19 +21,23 @@ def search(request):
         return render(request, 'reviews/search.html')
 
 
+# djanog template 문법을 보던가
+# views.py에서 filter attribute로 접근해봅시다.
 
 def index(request):
     reviews = Review.objects.all()
     tag_morning = Comment.objects.filter(tag__contains='morning')
-    tag_lunch = Comment.objects.filter(tag__contains='lunch')
+    tag_lunch = Comment.objects.filter(tag__contains='lunch').annotate
     tag_dinner = Comment.objects.filter(tag__contains='dinner')
     tag_midnight_snack = Comment.objects.filter(tag__contains='midnight_snack')
+    # list_review = []
     context = {
         'reviews' : reviews,
         'tag_morning' : tag_morning,
         'tag_lunch' : tag_lunch,
-        'tag_dinner' :tag_dinner, 
+        'tag_dinner' :tag_dinner,
         'tag_midnight_snack' :tag_midnight_snack,
+        # 'list_review' : list_review, 
     }
     return render(request, 'reviews/index.html',context)
     
