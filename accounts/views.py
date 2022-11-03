@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 
-from reviews.models import Review
+from reviews.models import Review, Comment
 from .models import User
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth import login as auth_login
@@ -94,10 +94,12 @@ def update(request):
 def profile(request,user_pk):
 
     person = get_user_model().objects.get(pk=user_pk)
+    comment_list = person.comment_set.all()
     context = {
         'person': person,
         'following': person.followings.order_by('followers')[:3],
         'follower': person.followers.order_by('followings')[:3],
+        'comment_list':comment_list,
     }
     return render(request, 'accounts/profile.html', context)
 
