@@ -33,7 +33,9 @@
       }
 
       .swiper-container {
-        height: 200px;
+
+        height: 250px;
+
       }
 
       .swiper-slide {
@@ -94,6 +96,11 @@
                 {% elif not user.is_owner %}
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:to_owner' %}">사업자요청</a>
+                  </li>
+                {% endif %}
+                {% if request.user.is_owner == True %}
+                  <li class="nav-item">
+                    <a href="{% url 'reviews:create' %}">가게 작성</a>
                   </li>
                 {% endif %}
               {% else %}
