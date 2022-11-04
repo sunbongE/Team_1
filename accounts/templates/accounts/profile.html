@@ -48,8 +48,8 @@
         <div class="swiper-container" style="width: 800px;">
           <div class="swiper-wrapper">
             {% for comment in comment_list %}
-            <div class="swiper-slide">
-              <a href="{% url 'reviews:detail' comment.review.pk %}">
+               <div class="swiper-slide">
+                <a href="{% url 'reviews:detail' comment.review.pk %}">
                   {% if comment.review.image %}
                   <img src="{{comment.review.image.url}}" style='height: 200px;'>
                   {% else %}
