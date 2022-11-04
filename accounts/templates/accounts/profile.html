@@ -115,9 +115,9 @@
           {% comment %} 여기에 팔로워 넣을거 {% endcomment %}
 
             <div class="my-2" id='f_container'>
-              {% for fw in follower %}
-
+              
               <div id='newdiv' data-info = '{{ request.user.pk }}' >
+                {% for fw in follower %}
                 <a href="{% url 'accounts:profile' fw.pk %}" id='{{ fw.pk }}'>
                   <div class="d-flex flex-row" data-new-id = {{ request.user.pk }}>
   
@@ -139,8 +139,8 @@
                     </div>
                   </div>
                 </a>
+                {% endfor %}
               </div>
-              {% endfor %}
             </div>
 
         </div>
@@ -171,23 +171,21 @@
           .target
           .dataset
           .userId
-          //----------------
-        const newId = event
-        .target
-        .dataset
-        .newId
+        
           axios({
             method: 'post',
             url: `/accounts/${userId}/follow/`,
             headers: {
-              'X-CSRFToken': csrftoken
+              "Content-Type": "multipart/form-data",
+              'X-CSRFToken': csrftoken,
             }
           })
           .then((response) => {
             const newFollower = document.querySelector('#f_container')
 //===========
             const myNew = document.querySelector('#newdiv')
-            console.log(myNew.dataset.info)
+            
+            
 
             const isFollowed = response.data.is_followed
             const followBtn = document.querySelector('#follow-form > input[type=submit]')
@@ -200,21 +198,31 @@
                 .classList
                 .remove('btn-primary')
               //console.log(response.data.me)
+              console.log(response.data)
+
               newFollower.insertAdjacentHTML('beforeend',
               `
-                <a class='my-1' id='${myNew.dataset.info}' href="/accounts/6/">
-                  <div class="d-flex flex-row">
-                    <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
-                      <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
-                    </div>
-                    <div class="">
-                      <p>
-                        ${ response.data.me }
-                      </p>
-                      
-                    </div>
+              <a class="my-1" id='${myNew.dataset.info}' href=" ">
+                <div class="d-flex flex-row">
+                  {% if fw.image %}
+                  <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
+                    <img style="width:100%;height:100%;" src="${fw.image.url}">
                   </div>
-                </a>
+                  {% else %}
+
+                  <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
+                    <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
+                  </div>
+                  {% endif %}
+                  <div class="">
+                    <p>
+                      ${ response.data.me }
+                    </p>
+                    
+                  </div>
+                </div>
+              </a> 
+              
               `)
 
             } else {
@@ -228,12 +236,12 @@
  
               
               new1=document.getElementById(`${myNew.dataset.info}`)
-              console.log(new1)
+              //console.log(new1)
               if (new1 === null) {
                  
               }
               else {
-                console.log(myNew.dataset.info)
+                //console.log(myNew.dataset.info)
                 new1.remove()
               }
 
