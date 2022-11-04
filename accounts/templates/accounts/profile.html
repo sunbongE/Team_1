@@ -104,8 +104,9 @@
 
             <div class="my-2" id='f_container'>
               {% for fw in follower %}
-                <a href="{% url 'accounts:profile' fw.pk %}">
-                  <div class="d-flex flex-row" data-user-id = {{ user.pk }}>
+              <div id='newdiv' data-info = '{{ request.user.pk }}' >
+                <a href="{% url 'accounts:profile' fw.pk %}" id='{{ fw.pk }}'>
+                  <div class="d-flex flex-row" data-new-id = {{ request.user.pk }}>
                     <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
                       <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
                     </div>
@@ -117,6 +118,7 @@
                     </div>
                   </div>
                 </a>
+              </div>
               {% endfor %}
             </div>
 
@@ -148,7 +150,11 @@
           .target
           .dataset
           .userId
-
+          //----------------
+        const newId = event
+        .target
+        .dataset
+        .newId
           axios({
             method: 'post',
             url: `/accounts/${userId}/follow/`,
@@ -158,7 +164,10 @@
           })
           .then((response) => {
             const newFollower = document.querySelector('#f_container')
-            //console.log(newFollower) 
+//===========
+            const myNew = document.querySelector('#newdiv')
+            console.log(myNew.dataset.info)
+
             const isFollowed = response.data.is_followed
             const followBtn = document.querySelector('#follow-form > input[type=submit]')
             if (isFollowed === true) {
@@ -172,7 +181,7 @@
               //console.log(response.data.me)
               newFollower.insertAdjacentHTML('beforeend',
               `
-                <a class='my-1' id='new1' href="/accounts/6/">
+                <a class='my-1' id='${myNew.dataset.info}' href="/accounts/6/">
                   <div class="d-flex flex-row">
                     <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
                       <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
@@ -195,14 +204,17 @@
               followBtn
                 .classList
                 .remove('btn-danger')
-
-              const new1 = document.querySelector('#new1')
-              userID = event.target.dataset.userId
-              //console.log(new1)
+ 
+              
+              new1=document.getElementById(`${myNew.dataset.info}`)
+              console.log(new1)
               if (new1 === null) {
-                console.log( userID )
+                 
               }
-              else {new1.remove()}
+              else {
+                console.log(myNew.dataset.info)
+                new1.remove()
+              }
 
             }
             const followersCountTag = document.querySelector('#followers-count')
