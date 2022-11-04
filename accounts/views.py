@@ -74,7 +74,7 @@ def logout(request):
 @login_required
 def update(request):
     if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance = request.user)
+        form = CustomUserChangeForm(request.POST,request.FILES, instance = request.user)
         if form.is_valid():
             checker = form.save(commit=False)
             form.user = request.user
@@ -93,11 +93,19 @@ def profile(request,user_pk):
 
     person = get_user_model().objects.get(pk=user_pk)
     comment_list = person.comment_set.all()
+    set_comment_list = []
+    comment_id_list = []
+
+    for i in comment_list:
+        if i.review.id not in comment_id_list:
+            comment_id_list.append(i.review.id)
+            set_comment_list.append(i)
+
     context = {
         'person': person,
         'following': person.followings.order_by('followers')[:3],
         'follower': person.followers.order_by('followings')[:3],
-        'comment_list':comment_list,
+        'comment_list':set_comment_list,
     }
     return render(request, 'accounts/profile.html', context)
 
