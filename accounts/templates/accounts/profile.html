@@ -50,7 +50,7 @@
               {% if comment.review.image %}
               <div class="swiper-slide">
                 <a href="{% url 'reviews:detail' comment.review.pk %}">
-                  <img src="{{comment.review.image.url}}">
+                  <img src="{{comment.review.image.url}}" >
                 </a>
               </div>
               {% endif %}
