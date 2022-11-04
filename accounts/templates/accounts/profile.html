@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load static %}
 {% bootstrap_javascript %}
 {% block content %}
 
@@ -47,13 +48,15 @@
         <div class="swiper-container" style="width: 800px;">
           <div class="swiper-wrapper">
             {% for comment in comment_list %}
-              {% if comment.review.image %}
-              <div class="swiper-slide">
+               <div class="swiper-slide">
                 <a href="{% url 'reviews:detail' comment.review.pk %}">
-                  <img src="{{comment.review.image.url}}" >
+                  {% if comment.review.image %}
+                  <img src="{{comment.review.image.url}}" style='height: 200px;'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
                 </a>
               </div>
-              {% endif %}
             {% endfor %}
           </div>
           <!-- 네비게이션 -->
@@ -75,7 +78,7 @@
             {% for fw in following%}
               <a href="{% url 'accounts:profile' fw.pk %}">
                 <div class="d-flex flex-row">
-                  <div class="border rounded-circle" style="width:100px; height: 100px; overflow: hidden;">
+                  <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
                     <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
                   </div>
                   <div class="">
@@ -97,25 +100,26 @@
             팔로워
           </h4>
           <hr>
-          <div class="my-2">
-            {% for fw in follower %}
-              <a href="{% url 'accounts:profile' fw.pk %}">
-                <div class="d-flex flex-row">
-                  <div class="border rounded-circle" style="width:100px; height: 100px; overflow: hidden;">
-                    <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
+          {% comment %} 여기에 팔로워 넣을거 {% endcomment %}
+
+            <div class="my-2" id='f_container'>
+              {% for fw in follower %}
+                <a href="{% url 'accounts:profile' fw.pk %}">
+                  <div class="d-flex flex-row" data-user-id = {{ user.pk }}>
+                    <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
+                      <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
+                    </div>
+                    <div class="">
+                      <p>
+                        {{ fw.username }}
+                      </p>
+                      
+                    </div>
                   </div>
-                  <div class="">
-                    <p>
-                      {{ fw.username }}
-                    </p>
-                    <span id="followers-count">{{ fw.followers.all|length }}</span>&nbsp;<b>팔로워</b>
-                    &nbsp;
-                    <span id="followings-count">{{ fw.followings.all|length }}</span>&nbsp;<b>팔로잉</b>
-                  </div>
-                </div>
-              </a>
-            {% endfor %}
-          </div>
+                </a>
+              {% endfor %}
+            </div>
+
         </div>
       </div>
 
@@ -153,6 +157,8 @@
             }
           })
           .then((response) => {
+            const newFollower = document.querySelector('#f_container')
+            //console.log(newFollower) 
             const isFollowed = response.data.is_followed
             const followBtn = document.querySelector('#follow-form > input[type=submit]')
             if (isFollowed === true) {
@@ -163,6 +169,24 @@
               followBtn
                 .classList
                 .remove('btn-primary')
+              //console.log(response.data.me)
+              newFollower.insertAdjacentHTML('beforeend',
+              `
+                <a class='my-1' id='new1' href="/accounts/6/">
+                  <div class="d-flex flex-row">
+                    <div class="border rounded-circle me-3" style="width:70px; height: 70px; overflow: hidden;">
+                      <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
+                    </div>
+                    <div class="">
+                      <p>
+                        ${ response.data.me }
+                      </p>
+                      
+                    </div>
+                  </div>
+                </a>
+              `)
+
             } else {
               followBtn.value = '팔로우'
               followBtn
@@ -171,6 +195,15 @@
               followBtn
                 .classList
                 .remove('btn-danger')
+
+              const new1 = document.querySelector('#new1')
+              userID = event.target.dataset.userId
+              //console.log(new1)
+              if (new1 === null) {
+                console.log( userID )
+              }
+              else {new1.remove()}
+
             }
             const followersCountTag = document.querySelector('#followers-count')
             const followingsCountTag = document.querySelector('#followings-count')
