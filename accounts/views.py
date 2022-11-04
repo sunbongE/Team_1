@@ -115,6 +115,7 @@ def follow(request,user_pk):
     User = get_user_model()
     me = request.user
     you = User.objects.get(pk=user_pk)
+    print(request.user.image )
 
     if you == request.user:
         return redirect("accounts:profile", user_pk)
@@ -126,8 +127,15 @@ def follow(request,user_pk):
     else:
         you.followers.add(me)
         is_followed = True
+    
+    if request.user.image:
+        pimg = request.user.image.url
+    else:
+        pimg = False
+
 
     context = {
+         'pimg':pimg,
         'me':me.username,
         'is_followed':is_followed,
         'followings_count':you.followings.count(),
