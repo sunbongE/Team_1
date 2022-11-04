@@ -12,21 +12,15 @@
           <div class="mb-3">
             <textarea style="resize: none; border:1px solid #000000" name="content" cols="40" rows="10" class="form-control" placeholder="맛 평가" required="" id="id_content"></textarea>
           </div>
-
-          <div class="d-flex justify-content-between">
-            <div class="mb-3 px-2" style="width: 50%;">
-              <label class="form-label" for="id_grade">평점</label>
-              <input type="number" name="grade" class="form-control" placeholder="평점" required="" id="id_grade">
-            </div>
-            <div class="mb-3 px-2" style="width: 50%;"><label class="form-label" for="id_tag">태그명</label>
-              <select name="tag" class="form-select" required="" id="id_tag">
-                <option value="" selected="">---------</option>
-                <option value="lunch">점메추</option>
-                <option value="dinner">저메추</option>
-                <option value="midnight_snack">야메추</option>
-                <option value="morning">아메추</option>
-              </select>
-            </div>
+          <div class="d-flex justify-content-between text-middle align-items-center mb-3 px-2 fs-2">
+            <input type="radio" style="width:20px;height:20px;" name="tag" id="id_tag" value="morning" checked> 아메추
+            <input type="radio" style="width:20px;height:20px;" name="tag" id="id_tag" value="lunch"> 점메추
+            <input type="radio" style="width:20px;height:20px;" name="tag" id="id_tag" value="dinner"> 저메추
+            <input type="radio" style="width:20px;height:20px;" name="tag" id="id_tag" value="midnight_snack"> 야메추
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="id_grade">평점</label>
+            <input type="number" name="grade" class="form-control" placeholder="평점" required="" id="id_grade">
           </div>
           <div class="mb-3">
             <label class="form-label" for="id_image">음식 사진</label>
@@ -142,6 +136,7 @@
   </div>
   <div class="d-flex border border-1 rounded-5 flex-row mt-5 p-5" id='map' style='width:100%; height:500px;'></div>
   <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-5" style="background-color: white;">
+    {% if comments %}
     {% for comment in comments %}
       <div class="border border-1 py-4 px-4 my-3 rounded-5 d-flex flex-row"  style="background-color: whitesmoke;">
         <div class="d-flex border rounded-5 align-self-center" style="width: 20rem; height: 20rem; overflow: hidden;">
@@ -245,6 +240,12 @@
         {% endif %}
       </div>  
     {% endfor %}
+    {% else %}
+
+      <p class="fs-2 text-center" style="color: grey;"> 아직 작성된 리뷰가 없네요.</p>
+      <p class="fs-3 text-center" style="color: grey;"> 해당 가게의 리뷰를 작성해주세요.</p> 
+
+    {% endif %}
     
 
   </div>
