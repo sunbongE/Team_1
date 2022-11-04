@@ -137,8 +137,9 @@ def update(request,detail_pk):
 
     context = {
         "form": form,
+        "re":review,
     }
-    return render(request, "reviews/create.html", context)
+    return render(request, "reviews/update.html", context)
 
 @login_required
 def delete(request,detail_pk):

@@ -2,15 +2,78 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
-<div class="container-fluid justify-content-center" style="width: 70%;">
+<div class="container-fluid d-flex justify-content-center my-5" style="width: 70%;">
   <div class="border border-1 rounded-5 p-5" style="background-color: white; width: 700px;">
-
     <h1 class="text-center my-4"> 가게 등록</h1> 
-    <form action="" method='POST' enctype="multipart/form-data">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      <input type="submit">
+    <form action="{% url 'reviews:create' %}" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="csrfmiddlewaretoken" value="3lXJuFiWsZUUtXARlezw9muSDafvUDRHp3vOL2sNju7J2HIp0PWl4fJCCA8mRHow">      <div class="mb-3">
+        <label class="form-label" for="id_store_name">상호명</label>
+        <input type="text" name="store_name" maxlength="80" class="form-control" placeholder="상호명" required="" id="id_store_name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="id_store_address">주소</label>
+        <input type="text" name="store_address" maxlength="100" class="form-control" placeholder="주소" required="" id="id_store_address">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="id_image">사진</label>
+        <input type="file" name="image" accept="image/*" class="form-control" id="id_image">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="id_phoneNumber">가게 번호</label>
+        <input type="text" name="phoneNumber" maxlength="16" class="form-control" placeholder="가게 번호" required="" id="id_phoneNumber">
+      </div>
+      <div class="mb-3">
+        <div class="form-check">
+          <input type="checkbox" name="parking" class="form-check-input" id="id_parking">
+          <label class="form-check-label" for="id_parking">주차</label>
+        </div>
+      </div>
+      <div class="mb-3 d-flex align-items-center">
+        <label class="form-label my-0 text-middle" for="id_time">영업 시간 &nbsp;</label>
+        <input type="time" name="time" required="" id="id_time"> <span class="fs-4">&nbsp;&nbsp;&nbsp; ~&nbsp;&nbsp;&nbsp; </span>
+        <input type="time" name="endtime" required="" id="id_endtime"> 
+      </div>
+      <div class="mb-3 d-flex align-items-center">
+      </div>
+      
+
+      <div class="mb-3">
+        <label class="form-label" for="id_price">가격대</label>
+        <input type="text" name="price" maxlength="15" class="form-control" placeholder="가격대" required="" id="id_price">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="id_breaktime">휴식 시간</label>
+        <input type="text" name="breaktime" maxlength="30" class="form-control" placeholder="휴식 시간" required="" id="id_breaktime">
+      </div>
+      <div class="mb-3"><label class="form-label" for="id_content">가게 소개</label>
+        <textarea name="content" cols="40" rows="10" class="form-control" placeholder="가게 소개" required="" id="id_content"></textarea>
+      </div>
+      <div class="d-flex justify-content-end">          
+        <input type="submit" class="btn btn-primary ">
+      </div>
     </form>
   </div>
 </div>
 {% endblock content %}
+
+{% block script%}
+<script>
+  $(function() {
+  $("#id_time").timepicker({
+      timeFormat: 'h:mm',
+      interval: 60,
+      minTime: '10',
+      maxTime: '6:00pm',
+      defaultTime: '11',
+      startTime: '10:00',
+      dynamic: false,
+      dropdown: true,
+      scrollbar: true        
+  });
+});
+
+</script>
+
+
+{% endblock script%}
+

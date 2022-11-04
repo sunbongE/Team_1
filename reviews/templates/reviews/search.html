@@ -8,7 +8,7 @@
       "에 대한 검색정보</h1>
     {% for review in reviews %}
 
-      <div class="d-flex flex-column align-items-self mx-auto justify-content-center" style="width: 1000px;">
+      <div class="d-flex flex-column align-items-self mx-auto justify-content-center my-3" style="width: 1000px;">
         <div class="d-flex border border-1 rounded-5 flex-row mt-5 p-5" style="background-color: white;">
           <a href="{% url 'reviews:detail' review.pk %}">
 
@@ -52,7 +52,7 @@
                 </tr>
                 <tr>
                   <th style="color:grey;">영업시간</th>
-                  <th>{{ review.time }}</th>
+                  <th>{{ review.time }} ~ {{ review.endtime}}</th>
                 </tr>
                 <tr>
                   <th style="color:grey;">쉬는시간</th>

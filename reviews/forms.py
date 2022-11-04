@@ -12,6 +12,7 @@ class ReviewForm(forms.ModelForm):
             'phoneNumber',
             'parking',
             'time',
+            'endtime',
             'price',
             'breaktime',
             'content',
