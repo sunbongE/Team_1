@@ -104,7 +104,6 @@ def profile(request,user_pk):
 
 @login_required
 def follow(request,user_pk):
-    
     User = get_user_model()
     me = request.user
     you = User.objects.get(pk=user_pk)
@@ -121,6 +120,7 @@ def follow(request,user_pk):
         is_followed = True
 
     context = {
+        'me':me.username,
         'is_followed':is_followed,
         'followings_count':you.followings.count(),
         "followers_count":you.followers.count(),
