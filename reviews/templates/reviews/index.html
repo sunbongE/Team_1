@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static  %}
 {% block content %}
   <div id='banner' class="">
     <div style="width: 100%; height:500px; overflow: hidden;">
@@ -20,18 +20,27 @@
           {% for review in reviews %}
           <div class="swiper-slide">
 
-            <a href="{% url 'reviews:detail' review.pk %}">
-              <div class="card " style='width:15rem;border:none;'>
-                {% if review.image %}
-                  <img src="{{ review.image.url }}" alt="{{review.image}}" class='card-img-top img-fluid'>
-                {% endif %}
-                <div class="card-body">
-                  <p class='text-start m-0 fw-bold'>
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' review.pk %}">
+                <div id="hover_card" class="card" style='width:15rem;border:none;'>
+                  {% if review.image %}
+                  <img style="height: 200px;" src="{{ review.image.url }}" alt="{{review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
+                  <div class="mx-2" id="hover_review">
+                    <p class="text-center my-2">{{review.store_name}}</p>
+                    <p class="text-center my-2">{{review.content}}</p>
+                  </div>
+
+                </div>
+              </a>
+              <div>
+                <p class='text-start m-0 fw-bold'>
                     {{review.store_name}}
                   </p>
-                </div>
               </div>
-            </a>
+            </div>
           </div>
           {% endfor %}
         </div>
@@ -55,17 +64,20 @@
         <div class="swiper-wrapper">
           {% for tm in tag_morning %}
           <div class="swiper-slide">
-
-            <a href="{% url 'reviews:detail' tm.review.pk %}">
-              <div class="card" style='width:15rem;border:none;'>
-                {% if tm.review.image %}
-                  <img src="{{ tm.review.image.url }}" alt="{{tm.review.image}}" class='card-img-top img-fluid'>
-                {% endif %}
-                <div class="card-body">
-                  {{tm.review.store_name}}
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' tm.review.pk %}">
+                <div class="card" style='width:15rem;border:none;'>
+                  {% if tm.review.image %}
+                  <img style="height: 200px;" src="{{ tm.review.image.url }}" alt="{{tm.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
                 </div>
+              </a>
+              <div>
+                <p class="my-0"> {{tm.review.store_name}} </p>
               </div>
-            </a>
+            </div>
           </div>
           {% endfor %}
         </div>
@@ -88,19 +100,20 @@
         <div class="swiper-wrapper">
           {% for tl in tag_lunch %}
           <div class="swiper-slide">
-
-            {% comment %} {% if tl.review not in list_reviews %} {% list_reviews.append(tl.review) %}  {% endcomment %}
-            <a href="{% url 'reviews:detail' tl.review.pk %}">
-              <div class="card" style='width:15rem;border:none;'>
-                {% if tl.review.image %}
-                  <img src="{{ tl.review.image.url }}" alt="{{tl.review.image}}" class='card-img-top img-fluid rounded'>
-                {% endif %}
-                <div class="card-body">
-                  {{tl.review.store_name}}
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' tl.review.pk %}">
+                <div class="card" style='width:15rem;border:none;'>
+                  {% if tl.review.image %}
+                  <img style="height: 200px;" src="{{ tl.review.image.url }}" alt="{{tl.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
                 </div>
+              </a>
+              <div>
+                <p class="my-0"> {{tl.review.store_name}} </p>
               </div>
-            </a>
-             {% comment %} {% endif %}  {% endcomment %}
+            </div>
           </div>
           {% endfor %}
         </div>
@@ -123,17 +136,20 @@
         <div class="swiper-wrapper">
           {% for td in tag_dinner %}
           <div class="swiper-slide">
-
-            <a href="{% url 'reviews:detail' td.review.pk %}">
-              <div class="card" style='width:15rem;border:none;'>
-                {% if td.review.image %}
-                  <img src="{{ td.review.image.url }}" alt="{{td.review.image}}" class='card-img-top img-fluid'>
-                {% endif %}
-                <div class="card-body">
-                  {{td.review.store_name}}
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' td.review.pk %}">
+                <div class="card" style='width:15rem;border:none;'>
+                  {% if td.review.image %}
+                  <img style="height: 200px;" src="{{ td.review.image.url }}" alt="{{td.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
                 </div>
+              </a>
+              <div>
+                <p class="my-0"> {{td.review.store_name}} </p>
               </div>
-            </a>
+            </div>
           </div>
           {% endfor %}
         </div>
@@ -146,7 +162,7 @@
     </div>
   </div>
   <div class="container-fluid" style="width: 1000px;">
-    <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;">
+    <div class="d-flex border border-1 rounded-5 flex-column my-5 p-3" style="background-color: white;">
       <h4 class="px-3">
         야식 메뉴 추천
       </h4>
@@ -156,17 +172,20 @@
         <div class="swiper-wrapper">
           {% for tms in tag_midnight_snack %}
           <div class="swiper-slide">
-
-            <a href="{% url 'reviews:detail' tms.review.pk %}">
-              <div class="card" style='width:15rem;border:none;'>
-                {% if tms.review.image %}
-                  <img src="{{ tms.review.image.url }}" alt="{{tms.review.image}}" class='card-img-top img-fluid'>
-                {% endif %}
-                <div class="card-body">
-                  {{tms.review.store_name}}
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' tms.review.pk %}">
+                <div class="card" style='width:15rem;border:none;'>
+                  {% if tms.review.image %}
+                  <img style="height: 200px;" src="{{ tms.review.image.url }}" alt="{{tms.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
                 </div>
+              </a>
+              <div>
+                <p class="my-0"> {{tms.review.store_name}} </p>
               </div>
-            </a>
+            </div>
           </div>
           {% endfor %}
         </div>

@@ -46,6 +46,8 @@
         /* 위아래 기준 중앙정렬 */
         justify-content: center;
         /* 좌우 기준 중앙정렬 */
+        padding-left: 2px;
+        padding-right: 2px;
       }
 
       .swiper-slide img {
@@ -113,6 +115,33 @@
         background-clip: padding-box;
 
       }
+      #hover_card {
+        position:relative;
+        transition: .5s ease; /* 필수는 아님 */
+      }
+
+      #hover_review {
+        position:absolute;
+        visibility:hidden;
+        top:20px;
+        left:20px;
+        color:white;
+        background-color: rgb(2, 2, 2,0.6);
+      }
+
+      #hover_card:hover {
+
+      }
+
+      #hover_card:hover #hover_review {
+        visibility:visible;
+        opacity:1;
+        width: 200px;
+        height: 150px;
+
+
+      }    
+
     </style>
   </head>
 
