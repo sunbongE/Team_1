@@ -1,3 +1,4 @@
+{% load static %}
 <html lang="en">
 
   <head>
@@ -72,7 +73,7 @@
     <!-- Swiper -->
     <div class=" swiper mySwiper swiper-initialized swiper-vertical swiper-pointer-events swiper-backface-hidden">
       <div class="swiper-wrapper" id="swiper-wrapper-10c3eee82ed625ad9" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(0px, -346px, 0px);">
-        <div class="info swiper-slide swiper-slide-prev" role="group" aria-label="1 / 9" style="height: 316px; margin-bottom: 30px;"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA0MjVfMjAw%2FMDAxNTU2MTU4MTY1ODIy.mtkztgpQ4f7Rc-pH8zy-VfjUINfrPXuUEaPjznTcFuMg.bxhf-JDcZ9tte7IJQyJHYWnBGxcAwpX7tTyyW1CUdXcg.JPEG.soonhwanstyle%2F%25BC%25DB%25C1%25A4%25C1%25FD%25C4%25AE%25B1%25B9%25BC%25F61127.jpg&type=sc960_832" alt="">
+        <div class="info swiper-slide swiper-slide-prev" role="group" aria-label="1 / 9" style="height: 316px; margin-bottom: 30px;"><img src="{% static 'main1.jpg' %}" alt="">
           <h1 class="info_1">오늘은 뭐를 먹어야 되나~
             <br>걱정이신 분들 이제 그만 생각하고
             <br>
@@ -80,10 +81,10 @@
             <a href="{% url 'accounts:login' %}">네!</a>
           </h1>
         </div>
-        <div class="swiper-slide swiper-slide-active" role="group" aria-label="2 / 9" style="height: 316px; margin-bottom: 30px;"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA1MTZfMTc3%2FMDAxNjIxMTM4NjU3ODM2.dqacWSD0cYEgaIDR3bVoaD1cgp0CKqmGtA16ABd0JnMg.6O-rEnGnJqb11UtOMnQIs65l4zWTSzLuFfTktr6mrAsg.JPEG.kyun8989%2F170327hk_3279.jpg&type=a340" alt=""></div>
-        <div class="swiper-slide swiper-slide-next" role="group" aria-label="3 / 9" style="height: 316px; margin-bottom: 30px;"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMDZfMjc0%2FMDAxNjM4NzU3NDQ0NDQ1.Xk-J3FWOC7p6Oa1YgcjhmFyISx885a_7GIhTB_2qIX0g.QWRfosL-qqBdAvjDKk1LTpV2e4UGS5Rz1KrCXJzDLKwg.JPEG.dlgudwls81%2FMasiLAb_0721_TB_050.jpg&type=sc960_832" alt=""></div>
-        <div class="swiper-slide" role="group" aria-label="4 / 9" style="height: 316px; margin-bottom: 30px;"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDExMTZfMjk2%2FMDAxNjA1NTE4Nzg5NTkx.FUgIRjGDyTJjOdNjtyjem5IhL7useIpWTXmxvBHsHB4g.2zavCMo0KBmOv2MlkkLZMofEGUx3omcN0hWcQ8snOaUg.JPEG.kyun8989%2F141121_%25B7%25D4%25B5%25A5%25B8%25B8%25B5%25CE_%25C8%25AB%25B1%25E2_0157.jpg&type=sc960_832" alt=""></div>
-        <div class="swiper-slide" role="group" aria-label="5 / 9" style="height: 316px; margin-bottom: 30px;"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTExMjVfNDAg%2FMDAxNjM3ODQ3Njc5MjI1.QhVoPoQEnPjK0EJen9frwGqJ-bD364R1G55vzsSfekIg.5-0Irhv7j3bCAVYXaOP8YIwmz4Rfr0a0wB0FeR6EvBMg.JPEG.deepof%2FKakaoTalk_20211125_210855530_11.jpg&type=sc960_832" alt=""></div>
+        <div class="swiper-slide swiper-slide-active" role="group" aria-label="2 / 9" style="height: 316px; margin-bottom: 30px;"><img src="{% static 'main2.jpg' %}" alt=""></div>
+        <div class="swiper-slide swiper-slide-next" role="group" aria-label="3 / 9" style="height: 316px; margin-bottom: 30px;"><img src="{% static 'main3.jpg' %}" alt=""></div>
+        <div class="swiper-slide" role="group" aria-label="4 / 9" style="height: 316px; margin-bottom: 30px;"><img src="{% static 'main4.jpg' %}" alt=""></div>
+        <div class="swiper-slide" role="group" aria-label="5 / 9" style="height: 316px; margin-bottom: 30px;"><img src="{% static 'main5.jpg' %}" alt=""></div>
       </div>
       <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-vertical">
         <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span>

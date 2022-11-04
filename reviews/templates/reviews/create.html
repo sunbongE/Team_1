@@ -6,7 +6,8 @@
   <div class="border border-1 rounded-5 p-5" style="background-color: white; width: 700px;">
     <h1 class="text-center my-4"> 가게 등록</h1> 
     <form action="{% url 'reviews:create' %}" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="csrfmiddlewaretoken" value="3lXJuFiWsZUUtXARlezw9muSDafvUDRHp3vOL2sNju7J2HIp0PWl4fJCCA8mRHow">      <div class="mb-3">
+      {% csrf_token %}
+      <div class="mb-3">
         <label class="form-label" for="id_store_name">상호명</label>
         <input type="text" name="store_name" maxlength="80" class="form-control" placeholder="상호명" required="" id="id_store_name">
       </div>
