@@ -19,6 +19,7 @@
         <div class="swiper-wrapper">
           {% for review in reviews %}
           <div class="swiper-slide">
+
             <div class="d-flex flex-column">
               <a href="{% url 'reviews:detail' review.pk %}">
                 <div id="hover_card" class="card" style='width:15rem;border:none;'>
@@ -31,10 +32,13 @@
                     <p class="text-center my-2">{{review.store_name}}</p>
                     <p class="text-center my-2">{{review.content}}</p>
                   </div>
+
                 </div>
               </a>
               <div>
-                <p class="my-0"> {{review.store_name}} </p>
+                <p class='text-start m-0 fw-bold'>
+                    {{review.store_name}}
+                  </p>
               </div>
             </div>
           </div>
