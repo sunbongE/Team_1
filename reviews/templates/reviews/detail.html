@@ -58,7 +58,12 @@
           </tr>
           <tr>
             <th style="color:grey;">주차</th>
-            <th>{{ review.parking }}</th>
+            {% if review.parking == True %}
+            <th>가능</th>
+            {% else %}
+            <th>불가능</th>
+
+            {% endif %}
           </tr>
           <tr>
             <th style="color:grey;">가격대</th>

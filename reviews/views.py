@@ -26,17 +26,43 @@ def search(request):
 
 def index(request):
     reviews = Review.objects.all()
-    tag_morning = Comment.objects.filter(tag__contains='morning')
-    tag_lunch = Comment.objects.filter(tag__contains='lunch').annotate
-    tag_dinner = Comment.objects.filter(tag__contains='dinner')
-    tag_midnight_snack = Comment.objects.filter(tag__contains='midnight_snack')
-    # list_review = []
+    mor = Comment.objects.filter(tag__contains='morning')
+    mor_list=[]
+    memoM = []
+    for i in range(len(mor)):
+        if mor[i].review_id not in memoM:
+            mor_list.append(mor[i])
+            memoM.append(mor[i].review_id)
+
+    lun = Comment.objects.filter(tag__contains='lunch')
+    lun_list=[]
+    memoL = []
+    for i in range(len(lun)):
+        if lun[i].review_id not in memoL:
+            lun_list.append(lun[i])
+            memoL.append(lun[i].review_id)
+
+    din = Comment.objects.filter(tag__contains='dinner')
+    din_list=[]
+    memo = []
+    for i in range(len(din)):
+        if din[i].review_id not in memo:
+            din_list.append(din[i])
+            memo.append(din[i].review_id)
+
+    sna = Comment.objects.filter(tag__contains='midnight_snack')
+    sna_list=[]
+    memoS = []
+    for i in range(len(sna)):
+        if sna[i].review_id not in memoS:
+            sna_list.append(sna[i])
+            memoS.append(sna[i].review_id)     
     context = {
         'reviews' : reviews,
-        'tag_morning' : tag_morning,
-        'tag_lunch' : tag_lunch,
-        'tag_dinner' :tag_dinner,
-        'tag_midnight_snack' :tag_midnight_snack,
+        'tag_morning' : mor_list,
+        'tag_lunch' : lun_list,
+        'tag_dinner' :din_list,
+        'tag_midnight_snack' :sna_list,
         # 'list_review' : list_review, 
     }
     return render(request, 'reviews/index.html',context)
