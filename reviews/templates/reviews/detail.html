@@ -154,9 +154,15 @@
 
         <div class="d-flex flex-column mx-4" style="width: 60%;">
           <div class="d-flex">
+            {% if comment.user.image %}
+            <div class="border rounded-circle" style="width:60px; height: 60px; overflow: hidden;">
+              <img style="width:100%;height:100%;" src="{{comment.user.image.url}}">
+            </div>
+            {% else %}
             <div class="border rounded-circle" style="width:60px; height: 60px; overflow: hidden;">
               <img style="width:100%;" src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MDlfMjIy/MDAxNTk0MzA0OTQyNjI4.CM6nRmdmRDX7BDq1VeVlz33DEk6xc09eJ_Vd4R-_1XEg.SVGH5Ndb90HG0KfccHZxuWRyP1lv9ubcoCp61LefzKEg.JPEG.mo_omj/IMG_2814.jpg?type=w800">
             </div>
+            {% endif %}
             <a class ="m-3 align-self-center fs-4" href="{% url 'accounts:profile' comment.user.pk%}">{{comment.user}}</a>
           </div>
           <div class="py-2">       
