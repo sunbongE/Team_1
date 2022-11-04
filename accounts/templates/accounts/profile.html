@@ -12,9 +12,9 @@
           </div>
         </div>
         <div class="col-8 p-4 ">
-          <p>{{person.username}}
+          <p>{{person.username}}&nbsp;&nbsp;
             {% if person == request.user %}
-              <a href="{% url 'accounts:update' %}" class='btn btn-outline-dark'>회원정보수정</a>
+               <a href="{% url 'accounts:update' %}" class='btn btn-outline-dark'>회원정보수정</a>
             {% endif %}
           </p>
           <span id="followers-count">{{ person.followers.all|length }}</span>&nbsp;<b>팔로워</b>
