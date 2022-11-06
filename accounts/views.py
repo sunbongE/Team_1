@@ -173,3 +173,12 @@ def approve(request,pk,user_pk):
         user.save()
         lst.delete()
         return redirect("accounts:check")
+
+def bookmark(request, user_pk):
+    user = User.objects.get(pk=user_pk)
+    lists = request.user.like_reviews.all()
+    context ={
+        'lists':lists,
+        'user':user,
+    }
+    return render(request,'accounts/bookmark.html',context)

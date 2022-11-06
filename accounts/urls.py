@@ -14,5 +14,6 @@ urlpatterns = [
     path('to_owner/',views.to_owner, name='to_owner'),
     path('check/', views.check, name='check'),
     path('<int:pk>/approve/<int:user_pk>',views.approve,name='approve'),
+    path('<int:user_pk>/bookmark/',views.bookmark,name = 'bookmark'),
 ]
 
