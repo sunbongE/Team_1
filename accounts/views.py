@@ -135,7 +135,7 @@ def follow(request,user_pk):
 
 
     context = {
-         'pimg':pimg,
+        'pimg':pimg,
         'me':me.username,
         'is_followed':is_followed,
         'followings_count':you.followings.count(),
