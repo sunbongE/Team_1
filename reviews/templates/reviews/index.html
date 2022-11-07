@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% load static  %}
+{% load static %}
 {% block content %}
   <div id='banner' class="">
     <div style="width: 100%; height:500px; overflow: hidden;">
       <img style="width: 100%; height:800px; opacity: 0.5;" src="{% static 'samsam.jpg' %}">
     </div>
-  </div>  
+  </div>
 
   <div class="container-fluid" style="width: 1000px;">
     <div class="d-flex border border-1 rounded-5 flex-column mt-5 p-3" style="background-color: white;">
@@ -30,17 +30,16 @@
                   <div class="mx-2" id="hover_review">
                     <p class="text-center my-2">{{review.store_name}}</p>
                     <p class="text-center my-2">{{review.content|truncatechars:60}}</p>
-                  </div>
 
-                </div>
-              </a>
-              <div>
-                <p class='text-center m-0 fw-bold'>
+                  </div>
+                </a>
+                <div>
+                  <p class='text-center m-0 fw-bold'>
                     {{review.store_name}}
                   </p>
+                </div>
               </div>
             </div>
-          </div>
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
@@ -62,8 +61,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           {% for tm in tag_morning %}
-          <div class="swiper-slide">
-
+            <div class="swiper-slide">
             <div class="d-flex flex-column">
               <a href="{% url 'reviews:detail' tm.review.pk %}">
                 <div id="hover_card" class="card px-2" style='width:15rem;border:none;'>
@@ -76,16 +74,15 @@
                     <p class="text-center my-2">{{tm.review.store_name}}</p>
                     <p class="text-center my-2">{{tm.review.content|truncatechars:60}}</p>
                   </div>
-
-                </div>
-              </a>
-              <div>
-                <p class='text-center m-0 fw-bold'>
+                  </div>
+                </a>
+                <div>
+                  <p class='text-center m-0 fw-bold'>
                     {{tm.review.store_name}}
                   </p>
+                </div>
               </div>
             </div>
-          </div>
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
@@ -106,7 +103,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           {% for tl in tag_lunch %}
-          <div class="swiper-slide">
+            <div class="swiper-slide">
 
             <div class="d-flex flex-column">
               <a href="{% url 'reviews:detail' tl.review.pk %}">
@@ -120,16 +117,15 @@
                     <p class="text-center my-2">{{tl.review.store_name}}</p>
                     <p class="text-center my-2">{{tl.review.content|truncatechars:60}}</p>
                   </div>
-
-                </div>
-              </a>
-              <div>
-                <p class='text-center m-0 fw-bold'>
+                  </div>
+                </a>
+                <div>
+                  <p class='text-center m-0 fw-bold'>
                     {{tl.review.store_name}}
                   </p>
+                </div>
               </div>
             </div>
-          </div>
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
@@ -150,8 +146,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           {% for td in tag_dinner %}
-          <div class="swiper-slide">
-
+            <div class="swiper-slide">
             <div class="d-flex flex-column">
               <a href="{% url 'reviews:detail' td.review.pk %}">
                 <div id="hover_card" class="card px-2" style='width:15rem;border:none;'>
@@ -164,16 +159,15 @@
                     <p class="text-center my-2">{{td.review.store_name}}</p>
                     <p class="text-center my-2">{{td.review.content|truncatechars:60}}</p>
                   </div>
-
-                </div>
-              </a>
-              <div>
-                <p class='text-center m-0 fw-bold'>
+                  </div>
+                </a>
+                <div>
+                  <p class='text-center m-0 fw-bold'>
                     {{td.review.store_name}}
                   </p>
+                </div>
               </div>
             </div>
-          </div>
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
@@ -194,7 +188,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           {% for tms in tag_midnight_snack %}
-          <div class="swiper-slide">
+            <div class="swiper-slide">
 
             <div class="d-flex flex-column">
               <a href="{% url 'reviews:detail' tms.review.pk %}">
@@ -208,16 +202,15 @@
                     <p class="text-center my-2">{{tms.review.store_name}}</p>
                     <p class="text-center my-2">{{tms.review.content|truncatechars:60}}</p>
                   </div>
-
-                </div>
-              </a>
-              <div>
-                <p class='text-center m-0 fw-bold'>
+                  </div>
+                </a>
+                <div>
+                  <p class='text-center m-0 fw-bold'>
                     {{tms.review.store_name}}
                   </p>
+                </div>
               </div>
             </div>
-          </div>
           {% endfor %}
         </div>
         <!-- 네비게이션 -->
