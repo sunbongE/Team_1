@@ -4,6 +4,7 @@ from reviews.models import Review,Comment
 from reviews.forms import CommentForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 import json
+from django.http import HttpResponseForbidden
 # Create your views here.
 def main(request):
     return render(request,'reviews/main.html')
@@ -125,21 +126,23 @@ def detail(request,detail_pk):
 @login_required
 def update(request,detail_pk):
     review = Review.objects.get(pk=detail_pk)
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES, instance=review)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.save()
-            return redirect("reviews:detail", detail_pk)
+    if request.user == review.user:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, request.FILES, instance=review)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.save()
+                return redirect("reviews:detail", detail_pk)
+        else:
+            form = ReviewForm(instance=review)
+        context = {
+            "form": form,
+            "re":review,
+        }
+        return render(request, "reviews/update.html", context)
     else:
-        form = ReviewForm(instance=review)
-
-    context = {
-        "form": form,
-        "re":review,
-    }
-    return render(request, "reviews/update.html", context)
+        return HttpResponseForbidden()
 
 @login_required
 def delete(request,detail_pk):
