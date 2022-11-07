@@ -179,10 +179,10 @@
                 <li>
                   <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
                 </li>
-              {% endif %}
-              <li>
-                <a class="nav-link" href="{% url 'accounts:bookmark' request.user.pk %}">북마크</a>
-              </li>
+                <li>
+                  <a class="nav-link" href="{% url 'accounts:bookmark' request.user.pk %}">북마크</a>
+                </li>
+                {% endif %}
             </ul>
             <br>
             <form class="d-flex" role="search" method="POST" action="{% url 'reviews:search' %}">
