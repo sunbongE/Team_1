@@ -22,6 +22,7 @@ def search(request):
         return render(request, 'reviews/search.html')
 
 
+
 # djanog template 문법을 보던가
 # views.py에서 filter attribute로 접근해봅시다.
 
