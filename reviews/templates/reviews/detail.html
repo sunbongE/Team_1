@@ -20,7 +20,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label" for="id_grade">평점</label>
-            <input type="number" name="grade" class="form-control" placeholder="평점" required="" id="id_grade">
+            <input type="number" name="grade" class="form-control" placeholder="1 ~ 5" required="" id="id_grade">
           </div>
           <div class="mb-3">
             <label class="form-label" for="id_image">음식 사진</label>
@@ -307,7 +307,7 @@
         const store_name = document.querySelector('#store_name')
         var infowindow = new kakao
           .maps
-          .InfoWindow({content: `'<div style="width:150px;text-align:center;padding:6px 0;">${store_name.innerText} </div>'`});
+          .InfoWindow({content: `'<div style="width:15rem;text-align:center;padding:6px 0;">${store_name.innerText} </div>'`});
         infowindow.open(map, marker);
 
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
