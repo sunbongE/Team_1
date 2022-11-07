@@ -152,6 +152,7 @@ AUTH_USER_MODEL = "accounts.User"
 MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/media/"
 
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'reviews', 'static')
 ]
