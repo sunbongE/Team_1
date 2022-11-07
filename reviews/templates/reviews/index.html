@@ -29,7 +29,7 @@
                   {% endif %}
                   <div class="mx-2" id="hover_review">
                     <p class="text-center my-2">{{review.store_name}}</p>
-                    <p class="text-center my-2">{{review.content}}</p>
+                    <p class="text-center my-2">{{review.content|truncatechars:60}}</p>
                   </div>
 
                 </div>
@@ -74,7 +74,7 @@
                   {% endif %}
                   <div class="mx-2" id="hover_review">
                     <p class="text-center my-2">{{tm.review.store_name}}</p>
-                    <p class="text-center my-2">{{tm.review.content}}</p>
+                    <p class="text-center my-2">{{tm.review.content|truncatechars:60}}</p>
                   </div>
 
                 </div>
@@ -118,7 +118,7 @@
                   {% endif %}
                   <div class="mx-2" id="hover_review">
                     <p class="text-center my-2">{{tl.review.store_name}}</p>
-                    <p class="text-center my-2">{{tl.review.content}}</p>
+                    <p class="text-center my-2">{{tl.review.content|truncatechars:60}}</p>
                   </div>
 
                 </div>
@@ -162,7 +162,7 @@
                   {% endif %}
                   <div class="mx-2" id="hover_review">
                     <p class="text-center my-2">{{td.review.store_name}}</p>
-                    <p class="text-center my-2">{{td.review.content}}</p>
+                    <p class="text-center my-2">{{td.review.content|truncatechars:60}}</p>
                   </div>
 
                 </div>
@@ -206,7 +206,7 @@
                   {% endif %}
                   <div class="mx-2" id="hover_review">
                     <p class="text-center my-2">{{tms.review.store_name}}</p>
-                    <p class="text-center my-2">{{tms.review.content}}</p>
+                    <p class="text-center my-2">{{tms.review.content|truncatechars:60}}</p>
                   </div>
 
                 </div>
