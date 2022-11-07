@@ -86,11 +86,10 @@
     </div>
     <div class="d-flex flex-column">
       {% if user.is_authenticated %}
-      <button type="button" style="opacity: 0.8;" class="btn btn-secondary" >
-        {% if request.user in review.like_users.all %}
-        <i id='fav-btn' data-review-id='{{ review.pk }}' class="bi bi-star-fill"></i>
-        {% else %}
-        <i id='fav-btn' data-review-id='{{ review.pk }}' class="bi bi-star"></i>
+      {% if request.user in review.like_users.all %}
+        <button type="button" style="opacity: 0.8;" data-review-id='{{ review.pk }}' id='fav-btn' class="btn btn-secondary bi bi-star-fill" >
+      {% else %}
+        <button type="button"  id='fav-btn' data-review-id='{{ review.pk }}' style="opacity: 0.8;" class=" btn btn-secondary bi bi-star" >
         {% endif %}
       </button>
       <span id='fav-count' class="text-center">{{ review.like_users.count }}</span>

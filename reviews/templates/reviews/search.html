@@ -75,10 +75,8 @@
             {% if user.is_authenticated %}
             {% if request.user in review.like_users.all %}
             <button type="button" style="opacity: 0.8;" data-review-id='{{ review.pk }}' class="fav-btn  btn btn-secondary bi bi-star-fill">
-              <i  class=" "></i>
                 {% else %}
             <button type="button" style="opacity: 0.8;" data-review-id='{{ review.pk }}' class="fav-btn  btn btn-secondary bi bi-star">
-              <i  class="  "></i>
                 {% endif %}
               </button>
               
