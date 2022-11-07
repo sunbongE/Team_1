@@ -35,7 +35,7 @@
           </div>
 
           <div>
-            <form action="" method="POST">
+            <form action="{% url 'accounts:signup' %}" method="POST">
               {% csrf_token %}
               <div class="form-floating">
                 <input type="text" class="form-control" placeholder="username" name="username">

@@ -3,7 +3,7 @@
 {% block content %}
   <div id='banner' class="">
     <div style="width: 100%; height:500px; overflow: hidden;">
-      <img style="width: 100%; height:800px; opacity: 0.5;" src="{% static 'background.jpg' %}">
+      <img style="width: 100%; height:800px; opacity: 0.5;" src="{% static 'samsam.jpg' %}">
     </div>
   </div>
 
@@ -31,7 +31,6 @@
                       <p class="text-center my-2">{{review.store_name}}</p>
                       <p class="text-center my-2">{{review.content}}</p>
                     </div>
-
                   </div>
                 </a>
                 <div>
@@ -63,20 +62,18 @@
         <div class="swiper-wrapper">
           {% for tm in tag_morning %}
             <div class="swiper-slide">
-
-              <div class="d-flex flex-column">
-                <a href="{% url 'reviews:detail' tm.review.pk %}">
-                  <div id="hover_card" class="card" style='width:15rem;border:none;'>
-                    {% if tm.review.image %}
-                      <img style="height: 200px;" src="{{ tm.review.image.url }}" alt="{{tm.review.image}}" class='card-img-top img-fluid'>
-                    {% else %}
-                      <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
-                    {% endif %}
-                    <div class="mx-2" id="hover_review">
-                      <p class="text-center my-2">{{tm.review.store_name}}</p>
-                      <p class="text-center my-2">{{tm.review.content}}</p>
-                    </div>
-
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' tm.review.pk %}">
+                <div id="hover_card" class="card px-2" style='width:15rem;border:none;'>
+                  {% if tm.review.image %}
+                  <img style="height: 200px;" src="{{ tm.review.image.url }}" alt="{{tm.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
+                  <div class="mx-2" id="hover_review">
+                    <p class="text-center my-2">{{tm.review.store_name}}</p>
+                    <p class="text-center my-2">{{tm.review.content}}</p>
+                  </div>
                   </div>
                 </a>
                 <div>
@@ -108,19 +105,18 @@
           {% for tl in tag_lunch %}
             <div class="swiper-slide">
 
-              <div class="d-flex flex-column">
-                <a href="{% url 'reviews:detail' tl.review.pk %}">
-                  <div id="hover_card" class="card" style='width:15rem;border:none;'>
-                    {% if tl.review.image %}
-                      <img style="height: 200px;" src="{{ tl.review.image.url }}" alt="{{tl.review.image}}" class='card-img-top img-fluid'>
-                    {% else %}
-                      <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
-                    {% endif %}
-                    <div class="mx-2" id="hover_review">
-                      <p class="text-center my-2">{{tl.review.store_name}}</p>
-                      <p class="text-center my-2">{{tl.review.content}}</p>
-                    </div>
-
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' tl.review.pk %}">
+                <div id="hover_card" class="card px-2" style='width:15rem;border:none;'>
+                  {% if tl.review.image %}
+                  <img style="height: 200px;" src="{{ tl.review.image.url }}" alt="{{tl.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
+                  <div class="mx-2" id="hover_review">
+                    <p class="text-center my-2">{{tl.review.store_name}}</p>
+                    <p class="text-center my-2">{{tl.review.content}}</p>
+                  </div>
                   </div>
                 </a>
                 <div>
@@ -151,20 +147,18 @@
         <div class="swiper-wrapper">
           {% for td in tag_dinner %}
             <div class="swiper-slide">
-
-              <div class="d-flex flex-column">
-                <a href="{% url 'reviews:detail' td.review.pk %}">
-                  <div id="hover_card" class="card" style='width:15rem;border:none;'>
-                    {% if td.review.image %}
-                      <img style="height: 200px;" src="{{ td.review.image.url }}" alt="{{td.review.image}}" class='card-img-top img-fluid'>
-                    {% else %}
-                      <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
-                    {% endif %}
-                    <div class="mx-2" id="hover_review">
-                      <p class="text-center my-2">{{td.review.store_name}}</p>
-                      <p class="text-center my-2">{{td.review.content}}</p>
-                    </div>
-
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' td.review.pk %}">
+                <div id="hover_card" class="card px-2" style='width:15rem;border:none;'>
+                  {% if td.review.image %}
+                  <img style="height: 200px;" src="{{ td.review.image.url }}" alt="{{td.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
+                  <div class="mx-2" id="hover_review">
+                    <p class="text-center my-2">{{td.review.store_name}}</p>
+                    <p class="text-center my-2">{{td.review.content}}</p>
+                  </div>
                   </div>
                 </a>
                 <div>
@@ -196,19 +190,18 @@
           {% for tms in tag_midnight_snack %}
             <div class="swiper-slide">
 
-              <div class="d-flex flex-column">
-                <a href="{% url 'reviews:detail' tms.review.pk %}">
-                  <div id="hover_card" class="card" style='width:15rem;border:none;'>
-                    {% if tms.review.image %}
-                      <img style="height: 200px;" src="{{ tms.review.image.url }}" alt="{{tms.review.image}}" class='card-img-top img-fluid'>
-                    {% else %}
-                      <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
-                    {% endif %}
-                    <div class="mx-2" id="hover_review">
-                      <p class="text-center my-2">{{tms.review.store_name}}</p>
-                      <p class="text-center my-2">{{tms.review.content}}</p>
-                    </div>
-
+            <div class="d-flex flex-column">
+              <a href="{% url 'reviews:detail' tms.review.pk %}">
+                <div id="hover_card" class="card px-2" style='width:15rem;border:none;'>
+                  {% if tms.review.image %}
+                  <img style="height: 200px;" src="{{ tms.review.image.url }}" alt="{{tms.review.image}}" class='card-img-top img-fluid'>
+                  {% else %}
+                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                  {% endif %}
+                  <div class="mx-2" id="hover_review">
+                    <p class="text-center my-2">{{tms.review.store_name}}</p>
+                    <p class="text-center my-2">{{tms.review.content}}</p>
+                  </div>
                   </div>
                 </a>
                 <div>
