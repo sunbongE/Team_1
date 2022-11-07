@@ -13,7 +13,7 @@ class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)              # 즐겨찾기
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews') # 즐겨찾기
     phoneNumberRegex = RegexValidator(regex = r'([0-9]{2,4})-?([0-9]{3,4})-?([0-9]{4})')   # 폰번
-    phoneNumber = models.CharField( max_length = 16, unique = True)
+    phoneNumber = models.CharField(validators = [str(phoneNumberRegex)], max_length = 16, unique = True)
     parking = models.BooleanField(default=False)                   # 주차가능 유무
     price = models.CharField(max_length=15)                         # 가격대
     time = models.TimeField()
