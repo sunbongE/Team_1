@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-with open('secrets.json','r') as f:
+with open(secret_file) as f:
     secrets = json.loads(f.read())
 
 def get_secret(setting, secrets=secrets):
@@ -152,9 +152,6 @@ AUTH_USER_MODEL = "accounts.User"
 MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/media/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'reviews', 'static')
