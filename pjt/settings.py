@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-with open('/home/xogh/Team_1/secrets.json','r') as f:
+with open(secret_file) as f:
     secrets = json.loads(f.read())
 
 def get_secret(setting, secrets=secrets):
@@ -38,7 +38,7 @@ def get_secret(setting, secrets=secrets):
 
 SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS =  ['*'] or ['.pythonanywhere.com'] 
 
@@ -151,10 +151,6 @@ AUTH_USER_MODEL = "accounts.User"
 # Media files (user uploaded filed)
 MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/media/"
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'reviews', 'static')
