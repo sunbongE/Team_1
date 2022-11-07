@@ -70,21 +70,22 @@ def index(request):
     
 @login_required
 def create(request):
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.save()
-            return redirect("reviews:index")
+    if request.user.is_owner == True:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, request.FILES)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.save()
+                return redirect("reviews:index")
+        else:
+            form = ReviewForm()
+        context = {
+            "form": form,
+        }
+        return render(request, "reviews/create.html", context)
     else:
-        form = ReviewForm()
-
-    context = {
-        "form": form,
-    }
-    return render(request, "reviews/create.html", context)
-
+            return HttpResponseForbidden()
 
 @login_required
 def comment_create(request,detail_pk):
