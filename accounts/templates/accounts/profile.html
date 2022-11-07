@@ -51,18 +51,28 @@
           리뷰한 가게들
         </h4>
         <hr>
-        <div class="swiper-container" style="width: 800px;">
+        <div class="swiper-container" style="width: 100%;">
           <div class="swiper-wrapper">
             {% for comment in comment_list %}
-               <div class="swiper-slide">
+            <div class="swiper-slide">
+
+              <div class="d-flex flex-column">
                 <a href="{% url 'reviews:detail' comment.review.pk %}">
-                  {% if comment.review.image %}
-                  <img src="{{comment.review.image.url}}" style='height: 200px;'>
-                  {% else %}
-                  <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
-                  {% endif %}
+                  <div id="hover_card" class="card" style='width:14rem;border:none;'>
+                    {% if comment.review.image %}
+                    <img style="height: 200px;" src="{{ comment.review.image.url }}" alt="{{comment.review.image}}" class='card-img-top img-fluid px-1'>
+                    {% else %}
+                    <img src="{% static 'noimg/noimg.png' %}" style='height: 200px;'>
+                    {% endif %}
+                  </div>
                 </a>
+                <div>
+                  <p class='text-center m-0 fw-bold'>
+                      {{comment.review.store_name}}
+                    </p>
+                </div>
               </div>
+            </div>
             {% endfor %}
           </div>
           <!-- 네비게이션 -->
@@ -274,7 +284,7 @@
     new Swiper('.swiper-container', {
 
         slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
-        spaceBetween : 30, // 슬라이드간 간격
+        spaceBetween : 0, // 슬라이드간 간격
         slidesPerGroup : 4, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
 
         // 그룹수가 맞지 않을 경우 빈칸으로 메우기
