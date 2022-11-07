@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-with open('/home/xogh/Team_1/secrets.json','r') as f:
+with open('secrets.json','r') as f:
     secrets = json.loads(f.read())
 
 def get_secret(setting, secrets=secrets):
