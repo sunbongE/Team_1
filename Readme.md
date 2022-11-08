@@ -2,6 +2,8 @@
 
 [기획서](기획.md)
 
+[회고](회고.md)
+
 ## Contributors
 
 <a href="https://github.com/sunbongE/Team_1/graphs/contributors">
