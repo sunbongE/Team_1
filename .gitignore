@@ -4,7 +4,8 @@
 
 ### Secret key ###
 secrets.json
-
+### db ###
+db.sqlite3
 ### Django ###
 *.log
 *.pot
