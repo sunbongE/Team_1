@@ -27,45 +27,39 @@ def search(request):
 # views.py에서 filter attribute로 접근해봅시다.
 
 def index(request):
-    reviews = Review.objects.all()
-    mor = Comment.objects.filter(tag__contains='morning')
+    reviews = Review.objects.all()                               # 모든가게
+    mor = Comment.objects.filter(tag__contains='morning')        # 아침메뉴
+    lun = Comment.objects.filter(tag__contains='lunch')          # 점심
+    din = Comment.objects.filter(tag__contains='dinner')         # 저녁
+    sna = Comment.objects.filter(tag__contains='midnight_snack') # 야식
+    
+    when = [mor, lun, din, sna] # 식사별
+
     mor_list=[]
-    memoM = []
-    for i in range(len(mor)):
-        if mor[i].review_id not in memoM:
-            mor_list.append(mor[i])
-            memoM.append(mor[i].review_id)
-
-    lun = Comment.objects.filter(tag__contains='lunch')
     lun_list=[]
-    memoL = []
-    for i in range(len(lun)):
-        if lun[i].review_id not in memoL:
-            lun_list.append(lun[i])
-            memoL.append(lun[i].review_id)
-
-    din = Comment.objects.filter(tag__contains='dinner')
     din_list=[]
-    memo = []
-    for i in range(len(din)):
-        if din[i].review_id not in memo:
-            din_list.append(din[i])
-            memo.append(din[i].review_id)
-
-    sna = Comment.objects.filter(tag__contains='midnight_snack')
     sna_list=[]
+    when_list= [mor_list, lun_list, din_list, sna_list]
+
+    memoM = []
+    memoL = []
+    memoD = []
     memoS = []
-    for i in range(len(sna)):
-        if sna[i].review_id not in memoS:
-            sna_list.append(sna[i])
-            memoS.append(sna[i].review_id)     
+    memoss =  [memoM, memoL, memoD, memoS]
+
+    for idx in range(len(when)):
+
+        for i in range(len(when[idx])):
+            # 메모에 이미 있으면 건너 뛴다.
+            if when[idx][i].review_id not in memoss[idx]: 
+                when_list[idx].append(when[idx][i])
+                memoss[idx].append(when[idx][i].review_id)
     context = {
         'reviews' : reviews,
         'tag_morning' : mor_list,
         'tag_lunch' : lun_list,
         'tag_dinner' :din_list,
         'tag_midnight_snack' :sna_list,
-        # 'list_review' : list_review, 
     }
     return render(request, 'reviews/index.html',context)
     
