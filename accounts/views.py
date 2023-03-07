@@ -161,8 +161,10 @@ def to_owner(request):
 
 
 def check(request):
-    lists = Isowner.objects.all()   
-    return render(request,'accounts/check.html',{'lists':lists,})
+    user = request.user
+    if user.is_superuser:
+        lists = Isowner.objects.all()   
+        return render(request,'accounts/check.html',{'lists':lists,})
 
 
 def approve(request,pk,user_pk):
